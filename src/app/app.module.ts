@@ -4,15 +4,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// RECOMMENDED
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { InterceptorService } from './shared/interceptor.service';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    NgxNavbarModule,
+    ButtonsModule.forRoot(),
+    HttpClientModule
+
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
