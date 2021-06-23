@@ -13,12 +13,16 @@ import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { InterceptorService } from './shared/interceptor.service';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
