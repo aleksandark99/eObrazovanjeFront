@@ -8,21 +8,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'student-service';
-  bsInlineValue = new Date();
-  bsInlineRangeValue: Date[];
-  maxDate = new Date();
  
-  constructor(private authService:AuthService,  private http: HttpClient,) {
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsInlineRangeValue = [this.bsInlineValue, this.maxDate];
-  }
-
-  mockLogin(){
-    console.log("test")
-    this.authService.login()
-    console.log(this.authService.getToken())
-  }
+  constructor(private authService:AuthService,  private http: HttpClient,) {}
   
   testWithJwt(){
     let body =  { 

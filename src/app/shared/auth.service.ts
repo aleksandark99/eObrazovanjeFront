@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { LoginDataRequest } from '../classes/login-data-request'
 @Injectable({
   providedIn: 'root'
 })
@@ -30,10 +30,14 @@ export class AuthService {
   // }
 
   // login
-  login() {
-    return this.http.post<any>(this.endpoint+"login?username=ag&password=ag", null)
+  login(data) {
+    console.warn(data.value);
+
+    var loginData= new LoginDataRequest(data.value);
+    return this.http.post<any>(this.endpoint+"login", loginData)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.jwt)
+        this.router.navigate(['']);
         console.warn(res)
         // this.getUserProfile(res._id).subscribe((res) => {
         //   this.currentUser = res;
@@ -72,6 +76,7 @@ export class AuthService {
   // Error 
   handleError(error: HttpErrorResponse) {
     let msg = '';
+
     if (error.error instanceof ErrorEvent) {
       // client-side error
       msg = error.error.message;
