@@ -16,6 +16,8 @@ import { InterceptorService } from './shared/interceptor.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddStudentToCourseComponent } from './components/add-student-to-course/add-student-to-course.component';
+import { AddProfessorToCourseComponent } from './components/add-professor-to-course/add-professor-to-course.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddStudentToCourseComponent,
+    AddProfessorToCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +38,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonsModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-
-    
+    ReactiveFormsModule    
   ],
   providers: [
     {

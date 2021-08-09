@@ -30,19 +30,14 @@ export class AuthService {
   // }
 
   // login
-  login(data) {
+  async login(data) {
     console.warn(data.value);
 
     var loginData= new LoginDataRequest(data.value);
-    return this.http.post<any>(this.endpoint+"login", loginData)
+     return this.http.post<any>(this.endpoint+"login", loginData)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.jwt)
-        this.router.navigate(['']);
         console.warn(res)
-        // this.getUserProfile(res._id).subscribe((res) => {
-        //   this.currentUser = res;
-        //   this.router.navigate(['user-profile/' + res.msg._id]);
-        // })
       })
   }
 
@@ -58,7 +53,7 @@ export class AuthService {
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.router.navigate(["/login"]);
     }
   }
 
