@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginDataRequest } from '../classes/login-data-request'
+import { UserRegisterData } from '../classes/UserRegisterData';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,14 +21,13 @@ export class AuthService {
   ) {
   }
 
-  // Register
-  // Register(user: User): Observable<any> {
-  //   let api = `${this.endpoint}/register-user`;
-  //   return this.http.post(api, user)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
+  Register(user: UserRegisterData) {
+    let api = `${this.endpoint}/register-user`;
+    return this.http.post(this.endpoint+"register", user,{responseType:'text'})
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   // login
   async login(data) {
