@@ -1,27 +1,33 @@
 # StudentService
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
+## Not logged in user
+* User login done `/login `
+* User registration done`/register`
 
-## Development server
+## ADMIN
+* Add Student to course TODO 
+* ADD TEACHER to course TODO
+* ADD ASSISTANT TO COURSE TODO
+* SEE ALL COURSES
+* IN SINGLE COURSE SEE ALL STUDENTS OR TEACHERS and ASISTANTS - here add option to remove  or add people to course
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## TEACHER
+* See all courses that he takes part in
+* Grade exams
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## STUDENT
+* See all courses with status , filter by name and status (passed,not passed), and sorting option
+* Register for an exam 
+* See all exams that user has registered for
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## ASSISTANT
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## ANY LOGGEDIN USER
+* See and update my profile information
+* upload / remove documents
 
-## Running end-to-end tests
+* Show my courses (show role of that user on that course too)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
