@@ -14,10 +14,10 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { InterceptorService } from './shared/interceptor.service';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddStudentToCourseComponent } from './components/add-student-to-course/add-student-to-course.component';
-import { AddProfessorToCourseComponent } from './components/add-professor-to-course/add-professor-to-course.component';
+import { RegisterComponent } from './components/register/register.component';
+
 
 
 @NgModule({
@@ -25,9 +25,7 @@ import { AddProfessorToCourseComponent } from './components/add-professor-to-cou
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    RegisterComponent,
-    AddStudentToCourseComponent,
-    AddProfessorToCourseComponent
+     RegisterComponent
   ],
   imports: [
     BrowserModule,
