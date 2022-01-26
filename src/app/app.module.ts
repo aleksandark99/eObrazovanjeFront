@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 
 
@@ -25,7 +26,8 @@ import { RegisterComponent } from './components/register/register.component';
     AppComponent,
     NavBarComponent,
     LoginComponent,
-     RegisterComponent
+     RegisterComponent,
+     CoursesComponent
   ],
   imports: [
     BrowserModule,
