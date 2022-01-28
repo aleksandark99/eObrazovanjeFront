@@ -17,7 +17,11 @@ import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+<<<<<<< HEAD
 import { CoursesComponent } from './components/courses/courses.component';
+=======
+import { CourseComponent } from './components/course/course.component';
+>>>>>>> d85dd40f5a6b4650923c56eeba2beecb1fd67be1
 
 
 
@@ -27,7 +31,11 @@ import { CoursesComponent } from './components/courses/courses.component';
     NavBarComponent,
     LoginComponent,
      RegisterComponent,
+<<<<<<< HEAD
      CoursesComponent
+=======
+     CourseComponent
+>>>>>>> d85dd40f5a6b4650923c56eeba2beecb1fd67be1
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CurrentUser } from '../interfaces/current-user';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -46,8 +45,9 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    return (authToken !== null) ? true : false;
+    //let authToken = localStorage.getItem('access_token');
+    //return (authToken !== null) ? true : false;
+    return true;
   }
 
   doLogout() {
