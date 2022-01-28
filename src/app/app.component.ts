@@ -11,23 +11,4 @@ export class AppComponent {
  
   constructor(private authService:AuthService,  private http: HttpClient,) {}
   
-  testWithJwt(){
-    let body =  { 
-      query: `
-      query{
-    		getExamPeriodsAndExams{
-				id,
-				name,
-		        toDate,
-		        fromDate
-    		}
-		  }
-      `
-  }
-    return this.http.post<any>("http://localhost:8080/student-service/auth/graphql",body )
-    .subscribe((res: any) => {
-      console.warn(res)
-    
-    })
-  }
 }

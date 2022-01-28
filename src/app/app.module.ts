@@ -11,33 +11,31 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './shared/interceptor.service';
 import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
-<<<<<<< HEAD
 import { CoursesComponent } from './components/courses/courses.component';
-=======
-import { CourseComponent } from './components/course/course.component';
->>>>>>> d85dd40f5a6b4650923c56eeba2beecb1fd67be1
-
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { CourseInstanceComponent } from './components/course-instance/course-instance.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     LoginComponent,
-     RegisterComponent,
-<<<<<<< HEAD
-     CoursesComponent
-=======
-     CourseComponent
->>>>>>> d85dd40f5a6b4650923c56eeba2beecb1fd67be1
+    RegisterComponent,
+    CoursesComponent
+    RegisterComponent,
+    CoursesComponent,
+    CourseInstanceComponent,
   ],
   imports: [
+    PaginationModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -46,15 +44,17 @@ import { CourseComponent } from './components/course/course.component';
     ButtonsModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule    
+    ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyBootstrapModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
