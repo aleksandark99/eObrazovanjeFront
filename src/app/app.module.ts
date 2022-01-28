@@ -29,6 +29,8 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
     NavBarComponent,
     LoginComponent,
     RegisterComponent,
+    CoursesComponent
+    RegisterComponent,
     CoursesComponent,
     CourseInstanceComponent,
   ],
