@@ -59,7 +59,7 @@ export class CoursesComponent implements OnInit {
         {
           className: 'col-3',
           type: 'input',
-          key: 'Name',
+          key: 'name',
           templateOptions: {
             label: 'Name',
             required: true
@@ -68,7 +68,7 @@ export class CoursesComponent implements OnInit {
         {
           className: 'col-3',
           type: 'input',
-          key: 'ECTS',
+          key: 'ects',
           templateOptions: {
             type: 'number',
             label: 'ECTS',
@@ -84,6 +84,11 @@ export class CoursesComponent implements OnInit {
   createNewCourse(model) {
     if (this.form.valid) {
       alert(JSON.stringify(this.model));
+      this.courseService.createCourse(this.model,"response").subscribe((response)=>{
+        if(response.status != 201) alert("something wnet wrong try again later")
+        else alert("course added")
+
+      })
     }
   }
 }
