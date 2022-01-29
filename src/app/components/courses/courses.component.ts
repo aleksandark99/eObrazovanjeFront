@@ -4,7 +4,7 @@ import { CourseResponse } from 'src/app/model/courseResponse';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-
+import { Pagination } from 'src/app/model/pagination';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -12,59 +12,56 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class CoursesComponent implements OnInit {
   courses: CourseResponse[] = [];
-  currentPage: any = 0;
-  page?: any = 0;
-  totalItems: any = 0;
-  itemsPerPage = 5;
-  searchWord="";
+  pagination: Pagination = new Pagination();
+  searchWord = '';
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.loadCourses()
-   }
+    this.loadCourses();
+  }
 
-  //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS 
+  //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS
   pageChanged(event: PageChangedEvent): void {
-    this.page = event.page;
+    this.pagination.page = event.page;
   }
 
   getNextPage() {
     this.courseService
-      .getCourses(this.currentPage - 1, this.searchWord, 5, 'response')
+      .getCourses(
+        this.pagination.currentPage - 1,
+        this.searchWord,
+        5,
+        'response'
+      )
       .subscribe((coursesResponse) => {
         this.courses = coursesResponse.body;
       });
   }
 
-
-
   searchCourses(searchModel) {
-    if(this.searchForm.valid){
-      this.currentPage=0;
-      this.searchWord=this.searchModel.search
+    if (this.searchForm.valid) {
+      this.pagination.resetPagination();
+      this.searchWord = this.searchModel.search;
       this.courseService
-      .getCourses(0, this.searchWord, 5, 'response')
-      .subscribe((coursesResponse) => {
-        this.courses = coursesResponse.body;
-        this.currentPage = coursesResponse.headers.get('Page');
-        this.totalItems = coursesResponse.headers.get('Total-Elements');
-      });
+        .getCourses(0, this.searchWord, 5, 'response')
+        .subscribe((coursesResponse) => {
+          this.courses = coursesResponse.body;
+          this.pagination.setPaginationFromHeaders(coursesResponse.headers);
+        });
     }
   }
 
-  loadCourses(){
-    this.searchModel={};
-    this.searchWord="";
-    this.currentPage=0;
+  // also for resetting search
+  loadCourses() {
+    this.searchModel = {};
+    this.searchWord = '';
+    this.pagination.resetPagination();
     this.courseService
       .getCourses(0, null, 5, 'response')
       .subscribe((coursesResponse) => {
         this.courses = coursesResponse.body;
-        this.currentPage = coursesResponse.headers.get('Page');
-        this.totalItems = coursesResponse.headers.get('Total-Elements');
+        this.pagination.setPaginationFromHeaders(coursesResponse.headers);
       });
-
-    
   }
 
   createNewCourse(model) {
@@ -81,7 +78,7 @@ export class CoursesComponent implements OnInit {
         });
     }
   }
-  // FORMS FORMS FORMS FORMS FORMS FORMS FORMS FORMS 
+  // FORMS FORMS FORMS FORMS FORMS FORMS FORMS FORMS
   form = new FormGroup({});
 
   model: any = {};
@@ -136,5 +133,4 @@ export class CoursesComponent implements OnInit {
       ],
     },
   ];
-
 }
