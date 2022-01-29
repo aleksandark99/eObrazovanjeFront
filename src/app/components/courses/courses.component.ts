@@ -16,38 +16,76 @@ export class CoursesComponent implements OnInit {
   page?: any = 0;
   totalItems: any = 0;
   itemsPerPage = 5;
+  searchWord="";
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.courseService
-      .getCourses(0, 5, 'response')
-      .subscribe((coursesResponse) => {
-        this.courses = coursesResponse.body;
-        this.currentPage = coursesResponse.headers.get('Page');
-        // this.page=coursesResponse.headers.get("Page");
-        this.totalItems = coursesResponse.headers.get('Total-Elements');
-      });
-    console.log('AAA');
-  }
+    this.loadCourses()
+   }
 
+  //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
   }
 
   getNextPage() {
     this.courseService
-      .getCourses(this.currentPage - 1, 5, 'response')
+      .getCourses(this.currentPage - 1, this.searchWord, 5, 'response')
       .subscribe((coursesResponse) => {
         this.courses = coursesResponse.body;
       });
   }
 
-  form = new FormGroup({});
 
+
+  searchCourses(searchModel) {
+    if(this.searchForm.valid){
+      this.currentPage=0;
+      this.searchWord=this.searchModel.search
+      this.courseService
+      .getCourses(0, this.searchWord, 5, 'response')
+      .subscribe((coursesResponse) => {
+        this.courses = coursesResponse.body;
+        this.currentPage = coursesResponse.headers.get('Page');
+        this.totalItems = coursesResponse.headers.get('Total-Elements');
+      });
+    }
+  }
+
+  loadCourses(){
+    this.searchModel={};
+    this.searchWord="";
+    this.currentPage=0;
+    this.courseService
+      .getCourses(0, null, 5, 'response')
+      .subscribe((coursesResponse) => {
+        this.courses = coursesResponse.body;
+        this.currentPage = coursesResponse.headers.get('Page');
+        this.totalItems = coursesResponse.headers.get('Total-Elements');
+      });
+
+    
+  }
+
+  createNewCourse(model) {
+    if (this.form.valid) {
+      this.courseService
+        .createCourse(this.model, 'response')
+        .subscribe((response) => {
+          if (response.status != 201)
+            alert('something wnet wrong try again later');
+          else {
+            this.options.resetModel();
+            alert('course added');
+          }
+        });
+    }
+  }
+  // FORMS FORMS FORMS FORMS FORMS FORMS FORMS FORMS 
+  form = new FormGroup({});
 
   model: any = {};
   options: FormlyFormOptions = {};
-
   fields: FormlyFieldConfig[] = [
     {
       className: 'section-label',
@@ -62,7 +100,7 @@ export class CoursesComponent implements OnInit {
           key: 'name',
           templateOptions: {
             label: 'Name',
-            required: true
+            required: true,
           },
         },
         {
@@ -74,21 +112,29 @@ export class CoursesComponent implements OnInit {
             label: 'ECTS',
             max: 12,
             min: 1,
-            required: true
+            required: true,
           },
         },
       ],
     },
   ];
 
-  createNewCourse(model) {
-    if (this.form.valid) {
-      alert(JSON.stringify(this.model));
-      this.courseService.createCourse(this.model,"response").subscribe((response)=>{
-        if(response.status != 201) alert("something wnet wrong try again later")
-        else alert("course added")
+  searchForm = new FormGroup({});
+  searchModel: any = {};
+  searchFields: FormlyFieldConfig[] = [
+    {
+      fieldGroup: [
+        {
+          className: 'col-3',
+          type: 'input',
+          key: 'search',
+          templateOptions: {
+            placeholder: 'name or code',
+            required: true,
+          },
+        },
+      ],
+    },
+  ];
 
-      })
-    }
-  }
 }
