@@ -2,7 +2,7 @@
   
   <div class="row justify-content-center" style="margin-top: 50px">
     <div class="col-12">
-      <form [formGroup]="form" (ngSubmit)="onSubmit(model)">
+      <form [formGroup]="form" (click)="createNewCourse(model)">
         <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
         <button type="submit" class="btn btn-warning">Submit</button>
       </form>

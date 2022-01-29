@@ -42,38 +42,6 @@ export class CoursesComponent implements OnInit {
       });
   }
 
-  // form = new FormGroup({});
-  // model = { email: 'email@gmail.com' };
-  // fields: FormlyFieldConfig[] = [
-  //   {
-  //     fieldGroupClassName: 'row',
-  //     fieldGroup: [
-  //       {
-  //         key: 'Name',
-  //         type: 'input',
-  //         templateOptions: {
-  //           label: 'Name',
-  //           placeholder: 'Name',
-  //           required: true,
-  //         },
-  //       },
-  //       {
-  //         key: 'ECTS',
-  //         type: 'input',
-  //         templateOptions: {
-  //           placeholder: 'ECTS',
-  //           required: true,
-  //           label: 'ECTS',
-
-  //           type: 'number',
-  //           max: 99999,
-  //           min: 0,
-  //         },
-  //       },
-  //     ],
-  //   },
-  // ];
-
   form = new FormGroup({});
 
 
@@ -113,7 +81,7 @@ export class CoursesComponent implements OnInit {
     },
   ];
 
-  onSubmit(model) {
+  createNewCourse(model) {
     if (this.form.valid) {
       alert(JSON.stringify(this.model));
     }
