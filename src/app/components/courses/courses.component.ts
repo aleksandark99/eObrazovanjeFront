@@ -5,6 +5,7 @@ import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { FormGroup } from "@angular/forms";
 import { FormlyFormOptions, FormlyFieldConfig } from "@ngx-formly/core";
 import { Pagination } from "src/app/model/pagination";
+
 @Component({
   selector: "app-courses",
   templateUrl: "./courses.component.html",
