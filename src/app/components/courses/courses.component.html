@@ -34,7 +34,7 @@
             <td>{{ course.ects }}</td>
             <td>{{ course.code }}</td>
             <td>
-              <a href="/course-instances?courseId">view Instances </a>
+              <a [routerLink]="['/course-instances']" [queryParams]="{ courseId: course.id }">view Instances </a>
             </td>
             <td>
               <button type="button" class="btn btn-warning">makeNewInstance</button>
