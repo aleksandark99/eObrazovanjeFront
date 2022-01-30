@@ -92,22 +92,28 @@ export class CourseInstanceService {
      * desc
      * @param courseId courseId
      * @param page page
+     * @param search search
      * @param size size
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCourseInstances(courseId: number, page?: number, size?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<CourseInstanceResponse>>;
-    public getCourseInstances(courseId: number, page?: number, size?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<CourseInstanceResponse>>>;
-    public getCourseInstances(courseId: number, page?: number, size?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<CourseInstanceResponse>>>;
-    public getCourseInstances(courseId: number, page?: number, size?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (courseId === null || courseId === undefined) {
-            throw new Error('Required parameter courseId was null or undefined when calling getCourseInstances.');
-        }
+    public getCourseInstances(courseId?: number, page?: number, search?: string, size?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<CourseInstanceResponse>>;
+    public getCourseInstances(courseId?: number, page?: number, search?: string, size?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<CourseInstanceResponse>>>;
+    public getCourseInstances(courseId?: number, page?: number, search?: string, size?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<CourseInstanceResponse>>>;
+    public getCourseInstances(courseId?: number, page?: number, search?: string, size?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (courseId !== undefined && courseId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>courseId, 'courseId');
+        }
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
+        }
+        if (search !== undefined && search !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>search, 'search');
         }
         if (size !== undefined && size !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
@@ -139,7 +145,7 @@ export class CourseInstanceService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<CourseInstanceResponse>>(`${this.configuration.basePath}/course-instances/${encodeURIComponent(String(courseId))}`,
+        return this.httpClient.get<Array<CourseInstanceResponse>>(`${this.configuration.basePath}/course-instances`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,

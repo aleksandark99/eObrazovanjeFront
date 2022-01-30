@@ -20,5 +20,6 @@ export class Pagination {
   setPaginationFromHeaders(headers: HttpHeaders) {
     this.currentPage = headers.get('Page');
     this.totalItems = headers.get('Total-Elements');
+    this.page = headers.get('Page');
   }
 }

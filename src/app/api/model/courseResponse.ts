@@ -14,6 +14,7 @@
 export interface CourseResponse { 
     code?: string;
     ects?: number;
+    id?: number;
     name?: string;
 }
 

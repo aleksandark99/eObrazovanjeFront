@@ -1,0 +1,60 @@
+<div class="container">
+  <!-- <div class="row justify-content-center" style="margin-top: 50px">
+      <div class="col-12" style="padding-bottom: 10px; border: 2px goldenrod; border-style: none none solid none">
+        <form [formGroup]="form" (click)="createNewCourse(model)">
+          <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
+          <button type="submit" class="btn btn-warning">Submit</button>
+        </form>
+      </div>
+    </div> -->
+  <div class="row justify-content-cente">
+    <form [formGroup]="form" class="col form-inline my-2 my-lg-0">
+      <formly-form style="margin-right: 10px" [form]="searchForm" [fields]="searchFields" [model]="searchModel"></formly-form>
+      <button type="submit" (click)="searchCourses(searchModel)" class="btn btn-warning inline">Search</button>
+      <button type="submit" style="margin-left: 10px" (click)="reset()" class="btn btn-warning">Reset</button>
+    </form>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">Students</th>
+            <th scope="col">Lecturers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let courseInstance of courseInstances; index as i; first as isFirst">
+            <th scope="row">{{ i }}</th>
+            <td>{{ courseInstance.name }}</td>
+            <td>{{ courseInstance.startDate }}</td>
+            <td>{{ courseInstance.endDate }}</td>
+            <td>
+              <a [routerLink]="['/students']" [queryParams]="{ courseInstanceId: courseInstance.id }">view Students </a>
+            </td>
+            <td>
+              <a [routerLink]="['/lecturers']" [queryParams]="{ courseInstanceId: courseInstance.id }">view Lecturers </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="text-center">
+        <pagination
+          [totalItems]="pagination.totalItems"
+          (click)="getNextPage()"
+          [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage"
+          (pageChanged)="pageChanged($event)"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>
