@@ -4,4 +4,6 @@ export * from './courseInstance.service';
 import { CourseInstanceService } from './courseInstance.service';
 export * from './pet.service';
 import { PetService } from './pet.service';
-export const APIS = [CourseService, CourseInstanceService, PetService];
+export * from './studentController.service';
+import { StudentControllerService } from './studentController.service';
+export const APIS = [CourseService, CourseInstanceService, PetService, StudentControllerService];

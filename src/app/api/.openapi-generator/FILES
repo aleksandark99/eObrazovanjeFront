@@ -5,6 +5,7 @@ api/api.ts
 api/course.service.ts
 api/courseInstance.service.ts
 api/pet.service.ts
+api/studentController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -14,4 +15,6 @@ model/courseInstanceResponse.ts
 model/courseResponse.ts
 model/models.ts
 model/petResponse.ts
+model/searchStudentDto.ts
+model/studentDto.ts
 variables.ts

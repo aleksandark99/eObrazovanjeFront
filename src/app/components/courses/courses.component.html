@@ -1,39 +1,17 @@
 <div class="container">
   <div class="row justify-content-center" style="margin-top: 50px">
-    <div class="col-12" style="padding-bottom: 10px; border: 2px goldenrod; border-style: none none solid none;">
+    <div class="col-12" style="padding-bottom: 10px; border: 2px goldenrod; border-style: none none solid none">
       <form [formGroup]="form" (click)="createNewCourse(model)">
-        <formly-form
-          [form]="form"
-          [fields]="fields"
-          [model]="model"
-          [options]="options"
-        ></formly-form>
+        <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options"></formly-form>
         <button type="submit" class="btn btn-warning">Submit</button>
       </form>
     </div>
   </div>
   <div class="row justify-content-cente">
     <form [formGroup]="form" class="col form-inline my-2 my-lg-0">
-      <formly-form style="margin-right: 10px;"
-        [form]="searchForm"
-        [fields]="searchFields"
-        [model]="searchModel"
-      ></formly-form>
-      <button
-        type="submit"
-        (click)="searchCourses(model)"
-        class="btn btn-warning inline"
-      >
-        Search
-      </button>
-      <button
-        type="submit"
-        style="margin-left: 10px"
-        (click)="loadCourses()"
-        class="btn btn-warning"
-      >
-        Reset
-      </button>
+      <formly-form style="margin-right: 10px" [form]="searchForm" [fields]="searchFields" [model]="searchModel"></formly-form>
+      <button type="submit" (click)="searchCourses(model)" class="btn btn-warning inline">Search</button>
+      <button type="submit" style="margin-left: 10px" (click)="loadCourses()" class="btn btn-warning">Reset</button>
     </form>
   </div>
   <div class="row justify-content-center">
@@ -59,9 +37,7 @@
               <a href="/course-instances?courseId">view Instances </a>
             </td>
             <td>
-              <button type="button" class="btn btn-warning">
-                makeNewInstance
-              </button>
+              <button type="button" class="btn btn-warning">makeNewInstance</button>
             </td>
           </tr>
         </tbody>

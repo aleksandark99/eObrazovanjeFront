@@ -22,6 +22,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { CourseInstanceComponent } from './components/course-instance/course-instance.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { StudentsComponent } from './components/students/students.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
     RegisterComponent,
     CoursesComponent,
     CourseInstanceComponent,
+    StudentsComponent,
   ],
   imports: [
     PaginationModule.forRoot(),

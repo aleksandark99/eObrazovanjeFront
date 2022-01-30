@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CourseService } from './api/course.service';
 import { CourseInstanceService } from './api/courseInstance.service';
 import { PetService } from './api/pet.service';
+import { StudentControllerService } from './api/studentController.service';
 
 @NgModule({
   imports:      [],
