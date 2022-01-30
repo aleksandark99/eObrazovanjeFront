@@ -11,7 +11,7 @@ import { NotSignedIn } from './guards/not-signed-in.guard'
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'login', pathMatch: 'full' },
+  {path: '', redirectTo:'login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent,canActivate:[NotSignedIn]},
   {path: 'register', component: RegisterComponent,canActivate:[NotSignedIn]},
   {path: 'courses', component: CoursesComponent,canActivate:[NotSignedIn]},
