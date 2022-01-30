@@ -15,26 +15,22 @@ export class CoursesComponent implements OnInit {
   courses: CourseResponse[] = [];
   pagination: Pagination = new Pagination();
   searchWord = "";
+  test: boolean = true;
+  firstTimeLoad: boolean = true;
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
     this.loadCourses();
   }
 
-  //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS
-  pageChanged(event: PageChangedEvent): void {
-    this.pagination.page = event.page;
-  }
-
-  getNextPage() {
-    this.courseService.getCourses(this.pagination.currentPage - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+  getNextPage(page) {
+    this.courseService.getCourses(page.page - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
       this.courses = coursesResponse.body;
     });
   }
 
   searchCourses(searchModel) {
     if (this.searchForm.valid) {
-      this.pagination.resetPagination();
       this.searchWord = this.searchModel.search;
       this.courseService.getCourses(0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
         this.courses = coursesResponse.body;
@@ -43,11 +39,12 @@ export class CoursesComponent implements OnInit {
     }
   }
 
+  
   // also for resetting search
   loadCourses() {
+    this.pagination.currentPage = 1;
     this.searchModel = {};
     this.searchWord = "";
-    this.pagination.resetPagination();
     this.courseService.getCourses(0, null, 5, "response").subscribe((coursesResponse) => {
       this.courses = coursesResponse.body;
       this.pagination.setPaginationFromHeaders(coursesResponse.headers);

@@ -47,13 +47,7 @@
   <div class="row justify-content-center">
     <div class="col-12 d-flex justify-content-center">
       <div class="text-center">
-        <pagination
-          [totalItems]="pagination.totalItems"
-          (click)="getNextPage()"
-          [itemsPerPage]="pagination.itemsPerPage"
-          [(ngModel)]="pagination.currentPage"
-          (pageChanged)="pageChanged($event)"
-        ></pagination>
+        <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="getNextPage($event)"></pagination>
       </div>
     </div>
   </div>
