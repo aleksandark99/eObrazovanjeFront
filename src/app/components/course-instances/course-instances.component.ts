@@ -6,7 +6,7 @@ import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { FormGroup } from "@angular/forms";
 import { FormlyFormOptions, FormlyFieldConfig } from "@ngx-formly/core";
 import { Router } from "@angular/router";
-import {Location} from '@angular/common'; 
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-course-instances",
@@ -31,7 +31,7 @@ export class CourseInstancesComponent implements OnInit {
 
   //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS
   pageChanged(event: PageChangedEvent): void {
-    this.pagination.page = event.page;
+    // this.pagination.page = event.page;
   }
 
   getNextPage() {
@@ -63,16 +63,15 @@ export class CourseInstancesComponent implements OnInit {
   }
 
   reset() {
-    this.courseId=null;
-    this.location.replaceState("/coures-instances")
+    this.courseId = null;
+    this.location.replaceState("/coures-instances");
     this.loadCourses();
   }
 
   //FORMS
-  form = new FormGroup({});
+  options: FormlyFormOptions = {};
   searchForm = new FormGroup({});
   searchModel: any = {};
-  model: any = {};
   searchFields: FormlyFieldConfig[] = [
     {
       fieldGroup: [
