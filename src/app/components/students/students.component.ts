@@ -3,10 +3,12 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { StudentControllerService, StudentDto } from 'src/app/api';
+import { StudentDto } from 'src/app/api/';
+
 import { Pagination } from 'src/app/model/pagination';
 import { Location } from "@angular/common";
 import { _isNumberValue } from '@angular/cdk/coercion';
+import { StudentControllerService } from 'src/app/api/api/studentController.service';
 
 @Component({
   selector: 'app-students',
