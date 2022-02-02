@@ -3,12 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { StudentDto } from 'src/app/api/';
+import { StudentDto } from 'src/app/api/model/studentDto'
 
 import { Pagination } from 'src/app/model/pagination';
 import { Location } from "@angular/common";
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { StudentControllerService } from 'src/app/api/api/studentController.service';
+import { isBoolean } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 @Component({
   selector: 'app-students',
@@ -27,14 +28,18 @@ export class StudentsComponent implements OnInit {
   constructor(private studentService: StudentControllerService, private router : ActivatedRoute,  private location: Location) { }
 
   ngOnInit(): void {
-    
+    //Number.isInteger(params.courseInstanceId)
     this.router.queryParams
       .subscribe(params => {
-        this.courseInstanceId =  Number.isInteger(params.courseInstanceId) && 
-                                                  params.courseInstanceId > -1 ? params.courseInstanceId : -2;
-        var searchObject = {pageNo : 0, pageSize : 5, searchWord : ""}
+        var isInt = /^\+?\d+$/.test(params.courseInstanceId) //regex check to isInt
+        if (!isInt){
+          this.location.replaceState("/students");
+          this.courseInstanceId = -2
+        } else {
+          this.courseInstanceId =  Number.parseInt(params.courseInstanceId) > -1 ? params.courseInstanceId : -2;
+        }
         this.studentService
-            .searchStudentsUsingPOST(this.courseInstanceId, searchObject, 'response', false)
+            .searchStudentsUsingPOST(this.courseInstanceId, {pageNo : 0, pageSize : 5, searchWord : ""}, 'response', false)
             .subscribe((studentsResponse) => {
                 this.students = studentsResponse.body;
                 this.pagination.setPaginationFromHeaders(studentsResponse.headers);
