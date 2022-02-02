@@ -1,15 +1,12 @@
 <div class="container" style="margin-top: 50px">
   <div class="row justify-content">
-    <ng-container *ngIf="canSearchStudents" >
-        <div class="col-4">
-            <form [formGroup]="form" (ngSubmit)="submit()">
-              <formly-form style="margin-right: 10px" [form]="form" [fields]="fields" [model]="model"></formly-form>
-              <button type="submit"  (click)="searchStudents(model)" class="btn btn-warning inline">Search</button>
-              <button type="submit" style="margin-left: 10px" (click)="loadStudents()" class="btn btn-warning">Reset</button>
-            </form>
-          </div>
-    </ng-container>
-    
+    <div class="col-4">
+        <form [formGroup]="form"> 
+          <formly-form style="margin-right: 10px" [form]="form" [fields]="fields" [model]="model"></formly-form>
+          <button type="submit" (click)="searchStudents(model)" class="btn btn-warning inline">Search</button>
+          <button type="submit" style="margin-left: 10px" (click)="resetStudents()" class="btn btn-warning">Reset</button>
+        </form>
+      </div>
   </div>
   <div class="row justify-content-center my-2">
     <div class="col-12">
@@ -28,12 +25,6 @@
             <td>{{ student.firstName }}</td>
             <td>{{ student.lastName }}</td>
             <td>{{ student.index }}</td>
-            <!-- <td>
-              <a href="/course-instances?courseId">view Instances </a>
-            </td>
-            <td>
-              <button type="button" class="btn btn-warning">makeNewInstance</button>
-            </td> -->
           </tr>
         </tbody>
       </table>
@@ -42,13 +33,7 @@
   <div class="row justify-content-center">
     <div class="col-12 d-flex justify-content-center">
       <div class="text-center">
-        <pagination
-          [totalItems]="pagination.totalItems"
-          (click)="getNextPage()"
-          [itemsPerPage]="pagination.itemsPerPage"
-          [(ngModel)]="pagination.currentPage"
-          (pageChanged)="pageChanged($event)"
-        ></pagination>
+        <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="getNextPage($event)"></pagination>
       </div>
     </div>
   </div>

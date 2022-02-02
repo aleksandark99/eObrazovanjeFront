@@ -5,6 +5,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { StudentControllerService, StudentDto } from 'src/app/api';
 import { Pagination } from 'src/app/model/pagination';
+import { Location } from "@angular/common";
+import { _isNumberValue } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-students',
@@ -16,91 +18,73 @@ export class StudentsComponent implements OnInit {
   students: StudentDto[] =[];
   pagination: Pagination = new Pagination();
   searchWord = '';
-  courseInstanceId : number = -1;
-  canSearchStudents : boolean = true;
+  courseInstanceId : number;
+  
 
 
-  constructor(private studentService: StudentControllerService, private router : ActivatedRoute) { }
+  constructor(private studentService: StudentControllerService, private router : ActivatedRoute,  private location: Location) { }
 
   ngOnInit(): void {
     
     this.router.queryParams
       .subscribe(params => {
-        this.courseInstanceId = params.courseInstanceId != null ? params.courseInstanceId : -1;
-        if (this.courseInstanceId != null && this.courseInstanceId  > -1 ) this.canSearchStudents = false;
-        this.loadStudents();
-      }
-    );
-  
+        this.courseInstanceId =  Number.isInteger(params.courseInstanceId) && 
+                                                  params.courseInstanceId > -1 ? params.courseInstanceId : -2;
+        var searchObject = {pageNo : 0, pageSize : 5, searchWord : ""}
+        this.studentService
+            .searchStudentsUsingPOST(this.courseInstanceId, searchObject, 'response', false)
+            .subscribe((studentsResponse) => {
+                this.students = studentsResponse.body;
+                this.pagination.setPaginationFromHeaders(studentsResponse.headers);
+              });
+      });
   }
+
 
    //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS
-   pageChanged(event: PageChangedEvent): void {
-    this.pagination.page = event.page;
+  getNextPage(page) {
+    if (this.courseInstanceId > -1){
+      //If 'courseInstanceId' is known we don't consider search field
+      var searchObject = {pageNo : page.page-1, pageSize : 5, searchWord : ""}
+      this.studentService.searchStudentsUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((studentsResponse) => {
+        this.students = studentsResponse.body;
+      });
+    } else {
+      //If 'courseInstanceId' is unknown we do consider search field
+      var searchObject = {pageNo : page.page-1, pageSize : 5, searchWord : this.searchWord}
+      this.studentService.searchStudentsUsingPOST(-1, searchObject, "response").subscribe((studentsResponse) => {
+        this.students = studentsResponse.body;
+      });
+
+    }
   }
 
-  getNextPage() {
-
-    if (this.courseInstanceId != null && this.courseInstanceId > -1){
-      //If 'courseInstanceId' is known we don't consider search field
-      var searchObject = {pageNo : this.pagination.currentPage, pageSize : 5, searchWord : ""}
+  public resetStudents() {
+    this.courseInstanceId = -2;
+    this.model = {};
+    this.searchWord = "";
+    this.model.search = "";
+    this.location.replaceState("/students");
+    var searchObject = {pageNo : 0, pageSize : 5, searchWord : this.searchWord}
       this.studentService.searchStudentsUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((studentsResponse) => {
         this.students = studentsResponse.body;
         this.pagination.setPaginationFromHeaders(studentsResponse.headers);
       });
-    } else {
-      //If 'courseInstanceId' is unknown we do consider search field
-      var searchObject = {pageNo : this.pagination.currentPage, pageSize : 5, searchWord : this.searchWord}
-      this.studentService.searchStudentsUsingPOST(-1, searchObject, "response").subscribe((studentsResponse) => {
-        this.students = studentsResponse.body;
-        this.pagination.setPaginationFromHeaders(studentsResponse.headers);
-      });
-
-    }
   }
 
-
-
-  public loadStudents(){
-    var searchObject = null;
-    var courseInstanceId = null;
-
-    if (this.courseInstanceId != null && this.courseInstanceId > -1){
-      searchObject = {pageNo : this.pagination.currentPage, pageSize : 5, searchWord : ""};
-      
-      courseInstanceId = this.courseInstanceId;
-    } else {
-     
-      searchObject = {pageNo : this.pagination.currentPage, pageSize : 5, searchWord : this.searchWord}
-      console.log("test: " + JSON.stringify(searchObject))
-      courseInstanceId = -1;
-    }
-
-
-    this.studentService
-      .searchStudentsUsingPOST(courseInstanceId, searchObject, 'response', false)
-      .subscribe((studentsResponse) => {
-        this.students = studentsResponse.body;
-        this.pagination.setPaginationFromHeaders(studentsResponse.headers);
-      });
-    }
-
-
-
     
-    
-  submit() {
+  public searchStudents(searchModel) {
     if (this.form.valid) {
-      //alert(JSON.stringify(this.model));
+      this.pagination.resetPagination();
       this.searchWord = this.model.search;
+      this.courseInstanceId = -2;
+      this.location.replaceState("/students");
+      var searchObject = {pageNo : 0, pageSize : 5, searchWord : this.searchWord}
+      this.studentService.searchStudentsUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((studentsResponse) => {
+        this.students = studentsResponse.body;
+        this.pagination.setPaginationFromHeaders(studentsResponse.headers);
+      });
     }
-  }
-
-    
-    
-    
-  searchStudents(searchModel) {
-
   }
 
 
