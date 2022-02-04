@@ -1,0 +1,109 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from "@angular/common";
+import { LecturerControllerService, LecturerDto } from 'src/app/api';
+import { Pagination } from 'src/app/model/pagination';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+
+@Component({
+  selector: 'app-lecturer',
+  templateUrl: './lecturer.component.html',
+  styleUrls: ['./lecturer.component.scss']
+})
+export class LecturerComponent implements OnInit {
+
+  lecturers: LecturerDto[] =[];
+  pagination: Pagination = new Pagination();
+  searchWord = '';
+  courseInstanceId : number;
+
+  constructor(private lecturerService: LecturerControllerService, private router : ActivatedRoute,  private location: Location) { }
+
+  ngOnInit(): void {
+    this.router.queryParams
+      .subscribe(params => {
+        var isInt = /^\+?\d+$/.test(params.courseInstanceId) //regex check to isInt
+        if (!isInt){
+          this.location.replaceState("/lecturer");
+          this.courseInstanceId = -2
+        } else {
+          this.courseInstanceId =  Number.parseInt(params.courseInstanceId) > -1 ? params.courseInstanceId : -2;
+        }
+        this.lecturerService
+            .searchLecturerUsingPOST(this.courseInstanceId, {pageNo : 0, pageSize : 5, searchWord : ""}, 'response', false)
+            .subscribe((lecturersResponse) => {
+                this.lecturers = lecturersResponse.body;
+                this.pagination.setPaginationFromHeaders(lecturersResponse.headers);
+              });
+      });
+  }
+
+  //  METHODS METHODS METHODS METHODS METHODS METHODS METHODS
+  public getNextPage(page) {
+    if (this.courseInstanceId > -1){
+      //If 'courseInstanceId' is known we don't consider search field
+      var searchObject = {pageNo : page.page-1, pageSize : 5, searchWord : ""}
+      this.lecturerService.searchLecturerUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((lecturersResponse) => {
+        this.lecturers = lecturersResponse.body;
+      });
+    } else {
+      //If 'courseInstanceId' is unknown we do consider search field
+      var searchObject = {pageNo : page.page-1, pageSize : 5, searchWord : this.searchWord}
+      this.lecturerService.searchLecturerUsingPOST(-1, searchObject, "response").subscribe((lecturersResponse) => {
+        this.lecturers = lecturersResponse.body;
+      });
+
+    }
+  }
+
+  public resetLecturer(){
+    this.courseInstanceId = -2;
+    this.model = {};
+    this.searchWord = "";
+    this.model.search = "";
+    this.location.replaceState("/lecturers");
+    var searchObject = {pageNo : 0, pageSize : 5, searchWord : this.searchWord}
+      this.lecturerService.searchLecturerUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((lecturersResponse) => {
+        this.lecturers = lecturersResponse.body;
+        this.pagination.setPaginationFromHeaders(lecturersResponse.headers);
+      });
+  }
+
+  public searchLecturers(searchModel) {
+    if (this.form.valid) {
+      this.pagination.resetPagination();
+      this.searchWord = this.model.search;
+      this.courseInstanceId = -2;
+      this.location.replaceState("/lecturers");
+      var searchObject = {pageNo : 0, pageSize : 5, searchWord : this.searchWord}
+      this.lecturerService.searchLecturerUsingPOST(this.courseInstanceId, searchObject, "response").subscribe((lecturersResponse) => {
+        this.lecturers = lecturersResponse.body;
+        this.pagination.setPaginationFromHeaders(lecturersResponse.headers);
+      });
+    }
+  }
+
+
+
+  form = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {
+    formState: {
+      awesomeIsForced: false,
+    },
+  };
+  fields: FormlyFieldConfig[] = [
+  
+    {
+      key: 'search',
+      type: 'input',
+      templateOptions: {
+        // label: 'Text',
+        placeholder: 'First name or last name or code',
+        required: true,
+      }
+    }
+  ];
+
+}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CourseInstancesComponent } from './components/course-instances/course-instances.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { StudentsComponent } from './components/students/students.component';
@@ -16,7 +17,9 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent,canActivate:[NotSignedIn]},
   {path: 'courses', component: CoursesComponent,canActivate:[AuthGuard]},
   {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
-  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[AuthGuard]}
+  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[NotSignedIn]},
+  {path: 'lecturers', component: LecturerComponent,canActivate:[NotSignedIn]}
+
 
   
   // {path: 'add-student-to-course', component: AddStudentToCourseComponent,canActivate:[AuthGuard]},
