@@ -14,9 +14,9 @@ const routes: Routes = [
   {path: '', redirectTo:'login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent,canActivate:[NotSignedIn]},
   {path: 'register', component: RegisterComponent,canActivate:[NotSignedIn]},
-  {path: 'courses', component: CoursesComponent,canActivate:[NotSignedIn]},
+  {path: 'courses', component: CoursesComponent,canActivate:[AuthGuard]},
   {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
-  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[NotSignedIn]}
+  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[AuthGuard]}
 
   
   // {path: 'add-student-to-course', component: AddStudentToCourseComponent,canActivate:[AuthGuard]},

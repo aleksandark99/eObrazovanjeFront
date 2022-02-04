@@ -10,7 +10,7 @@ import { UserRegisterData } from '../classes/UserRegisterData';
 })
 
 export class AuthService {
-  endpoint: string = 'http://localhost:8080/student-service/';
+  endpoint: string = 'http://localhost:8080/';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   Register(user: UserRegisterData) {
-    let api = `${this.endpoint}/register-user`;
+    let api = `${this.endpoint}auth/register`;
     return this.http.post(this.endpoint+"register", user,{responseType:'text'})
       .pipe(
         catchError(this.handleError)
@@ -30,13 +30,12 @@ export class AuthService {
 
   // login
   async login(data) {
-    console.warn(data.value);
-
     var loginData= new LoginDataRequest(data.value);
-     return this.http.post<any>(this.endpoint+"login", loginData)
+     return this.http.post<any>(this.endpoint+"auth/login", loginData)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.jwt)
         console.warn(res)
+        console.warn("AA" + res.token)
+        localStorage.setItem('access_token', res.token)
       })
   }
 

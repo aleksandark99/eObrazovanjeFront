@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
   });
    login()  {
      this.authService.login(this.loginDataForm)
-     this.router.navigate([""])
+     .then(res => {
+      this.router.navigate(["/courses"])
+      console.log(this.authService.isLoggedIn)
+    })
+    .catch(err =>console.log("ERROR LOGGING IN: "+ err))
 
   }
 }
