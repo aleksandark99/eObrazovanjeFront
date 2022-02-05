@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountComponent } from './components/account/account.component';
 import { CourseInstancesComponent } from './components/course-instances/course-instances.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
 import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -16,12 +18,18 @@ const routes: Routes = [
   {path: '', redirectTo:'login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent,canActivate:[NotSignedIn]},
   {path: 'register', component: RegisterComponent,canActivate:[NotSignedIn]},
-  {path: 'courses', component: CoursesComponent,canActivate:[NotSignedIn]},
+  {path: 'courses', component: CoursesComponent,canActivate:[AuthGuard]},
+  {path: 'students', component: StudentsComponent,canActivate:[AuthGuard]},
+  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[AuthGuard]},
+  {path: 'account', component: AccountComponent,canActivate:[AuthGuard]},
   {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
-  {path: 'course-instances', component: CourseInstancesComponent,canActivate:[NotSignedIn]},
   {path: 'lecturers', component: LecturerComponent,canActivate:[NotSignedIn]},
-  {path: 'student', component: ProfileComponent,canActivate:[NotSignedIn]},
-  {path: 'lecturer', component: ProfileComponent,canActivate:[NotSignedIn]}
+  {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]}
+
+
+  
+  // {path: 'add-student-to-course', component: AddStudentToCourseComponent,canActivate:[AuthGuard]},
+  // {path: 'add-professor-to-course', component: AddProfessorToCourseComponent,canActivate:[AuthGuard]},
 
 ];
 

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
-import { LecturerControllerService, LecturerDto } from 'src/app/api';
 import { Pagination } from 'src/app/model/pagination';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { LecturerDto } from 'src/app/api/model/lecturerDto';
+import { LecturerControllerService } from 'src/app/api/api/lecturerController.service';
 
 @Component({
   selector: 'app-lecturer',

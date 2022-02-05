@@ -6,7 +6,6 @@ import { AccountService } from './api/account.service';
 import { CourseService } from './api/course.service';
 import { CourseInstanceService } from './api/courseInstance.service';
 import { EnrollmentService } from './api/enrollment.service';
-import { LecturerControllerService } from './api/lecturerController.service';
 import { PetService } from './api/pet.service';
 import { ProfileControllerService } from './api/profileController.service';
 import { StudentControllerService } from './api/studentController.service';

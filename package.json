@@ -24,6 +24,7 @@
     "@ngx-formly/core": "^5.10.31",
     "@schematics/angular": "^9.1.0",
     "bootstrap": "4.1.1",
+    "js-joda": "^1.11.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-bootstrap-navbar": "0.0.5",
     "rxjs": "~6.6.0",
