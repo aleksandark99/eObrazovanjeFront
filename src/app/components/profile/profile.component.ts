@@ -4,7 +4,8 @@ import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { Location } from "@angular/common";
 import { Pagination } from 'src/app/model/pagination';
-import { ProfileControllerService } from 'src/app/api';
+import { ProfileControllerService } from 'src/app/api/api/profileController.service';
+
 
 @Component({
   selector: 'app-profile',
