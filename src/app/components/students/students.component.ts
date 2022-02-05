@@ -22,6 +22,7 @@ export class StudentsComponent implements OnInit {
   pagination: Pagination = new Pagination();
   searchWord = '';
   courseInstanceId : number;
+  public student = 2;
   
 
 

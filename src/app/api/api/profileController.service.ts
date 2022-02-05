@@ -19,9 +19,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { AccountResponse } from '../model/accountResponse';
+import { ProfileChangeDto } from '../model/profileChangeDto';
 // @ts-ignore
-import { PaymentResponse } from '../model/paymentResponse';
+import { ProfileDto } from '../model/profileDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -32,7 +32,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class ProfileControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -90,15 +90,22 @@ export class AccountService {
     }
 
     /**
-     * getMyAccount
-     * desc
+     * getProfileInfo
+     * @param userId userId
+     * @param userType userType
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMyAccount(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<AccountResponse>;
-    public getMyAccount(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<AccountResponse>>;
-    public getMyAccount(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<AccountResponse>>;
-    public getMyAccount(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getProfileInfoUsingGET(userId: number, userType: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ProfileDto>;
+    public getProfileInfoUsingGET(userId: number, userType: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ProfileDto>>;
+    public getProfileInfoUsingGET(userId: number, userType: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ProfileDto>>;
+    public getProfileInfoUsingGET(userId: number, userType: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling getProfileInfoUsingGET.');
+        }
+        if (userType === null || userType === undefined) {
+            throw new Error('Required parameter userType was null or undefined when calling getProfileInfoUsingGET.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -106,7 +113,7 @@ export class AccountService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
-                'application/json'
+                '*/*'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -125,7 +132,7 @@ export class AccountService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<AccountResponse>(`${this.configuration.basePath}/account`,
+        return this.httpClient.get<ProfileDto>(`${this.configuration.basePath}/profile/${encodeURIComponent(String(userType))}/${encodeURIComponent(String(userId))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -138,15 +145,22 @@ export class AccountService {
     }
 
     /**
-     * getMyPayments
-     * desc
+     * updateEmail
+     * @param newEmail newEmail
+     * @param userId userId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMyPayments(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<PaymentResponse>>;
-    public getMyPayments(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<PaymentResponse>>>;
-    public getMyPayments(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<PaymentResponse>>>;
-    public getMyPayments(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public updateEmailUsingPOST(newEmail: string, userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ProfileChangeDto>;
+    public updateEmailUsingPOST(newEmail: string, userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ProfileChangeDto>>;
+    public updateEmailUsingPOST(newEmail: string, userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ProfileChangeDto>>;
+    public updateEmailUsingPOST(newEmail: string, userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (newEmail === null || newEmail === undefined) {
+            throw new Error('Required parameter newEmail was null or undefined when calling updateEmailUsingPOST.');
+        }
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling updateEmailUsingPOST.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -154,7 +168,7 @@ export class AccountService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
-                'application/json'
+                '*/*'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -173,65 +187,10 @@ export class AccountService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<PaymentResponse>>(`${this.configuration.basePath}/account/payments`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * makePayment
-     * desc
-     * @param amount amount
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public makePayment(amount?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public makePayment(amount?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public makePayment(amount?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public makePayment(amount?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (amount !== undefined && amount !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>amount, 'amount');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.post<any>(`${this.configuration.basePath}/account`,
+        return this.httpClient.post<ProfileChangeDto>(`${this.configuration.basePath}/profile/updateEmail/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(newEmail))}`,
             null,
             {
                 context: localVarHttpContext,
-                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
