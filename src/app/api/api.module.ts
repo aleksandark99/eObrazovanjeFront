@@ -2,10 +2,12 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
+import { AccountService } from './api/account.service';
 import { CourseService } from './api/course.service';
 import { CourseInstanceService } from './api/courseInstance.service';
 import { PetService } from './api/pet.service';
 import { StudentControllerService } from './api/studentController.service';
+import { UserService } from './api/user.service';
 
 @NgModule({
   imports:      [],

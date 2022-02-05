@@ -1,0 +1,43 @@
+<!-- <p>account works!</p>
+<p>Account number:{{account.accountNumber}}</p>
+<p>Account balance:{{account.balance}}</p>
+
+<p *ngFor="let payment of payments; index as i; first as isFirst"> {{payment.ammount}} {{payment.date}}</p> -->
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 50px">
+    <div class="row justify-content-center">
+      <div class="card" style="width: 25rem">
+        <div class="card-body">
+          <h5 class="card-title">Account details</h5>
+          <p>Account number: {{ account.accountNumber }}</p>
+          <p>Account balance: {{ account.balance }}</p>
+          <h6 class="card-title">Payment History:</h6>
+          <!-- <p *ngFor="let payment of payments; index as i; first as isFirst">{{ payment.amount }} {{ payment.date }}</p> -->
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Ammount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of payments; index as i; first as isFirst">
+                <th scope="row">{{ i }}</th>
+                <td>{{ payment.date }}</td>
+                <td>{{ payment.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button type="button" class="btn btn-warning" (click)="addMoney(200)">Add +200.00</button>
+              <button type="button" style="margin-left: 5px" class="btn btn-warning" (click)="addMoney(500)">Add +500.00</button>
+              <button type="button" style="margin-left: 5px" class="btn btn-warning" (click)="addMoney(1000)">Add +1000.00</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
