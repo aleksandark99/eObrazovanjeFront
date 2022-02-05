@@ -5,6 +5,7 @@ api/account.service.ts
 api/api.ts
 api/course.service.ts
 api/courseInstance.service.ts
+api/lecturerController.service.ts
 api/pet.service.ts
 api/studentController.service.ts
 api/user.service.ts
@@ -16,12 +17,20 @@ model/accountResponse.ts
 model/courseCreateRequest.ts
 model/courseInstanceResponse.ts
 model/courseResponse.ts
+<<<<<<< HEAD
+=======
+model/lecturerDto.ts
+>>>>>>> 42e074b333948c537fb0f99c08c7a89b487a7f60
 model/loginRequest.ts
 model/loginResponse.ts
 model/models.ts
 model/paymentResponse.ts
 model/petResponse.ts
 model/registerRequest.ts
+<<<<<<< HEAD
+=======
+model/searchLecturerDto.ts
+>>>>>>> 42e074b333948c537fb0f99c08c7a89b487a7f60
 model/searchStudentDto.ts
 model/studentDto.ts
 variables.ts
