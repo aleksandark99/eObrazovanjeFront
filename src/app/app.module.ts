@@ -26,6 +26,7 @@ import { StudentsComponent } from './components/students/students.component';
 import { CourseInstancesComponent } from './components/course-instances/course-instances.component';
 import { AccountComponent } from './components/account/account.component';
 import { LecturerComponent } from './components/lecturer/lecturer.component';
+import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LecturerComponent } from './components/lecturer/lecturer.component';
     StudentsComponent,
     CourseInstancesComponent,
     AccountComponent,
-    LecturerComponent
+    LecturerComponent,
+    EnrollemntsComponent
   ],
   imports: [
     PaginationModule.forRoot(),
