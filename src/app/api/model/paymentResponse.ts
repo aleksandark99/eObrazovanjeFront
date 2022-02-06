@@ -12,7 +12,7 @@
 
 
 export interface PaymentResponse { 
-    amount: number;
-    date: string;
+    amount?: number;
+    date?: string;
 }
 

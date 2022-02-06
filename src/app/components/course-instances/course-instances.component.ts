@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { CourseInstanceResponse, CourseInstanceService } from "src/app/api";
+import { CourseInstanceResponse, CourseInstanceControllerService } from "src/app/api";
 import { Pagination } from "src/app/model/pagination";
 import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { FormGroup } from "@angular/forms";
@@ -19,7 +19,7 @@ export class CourseInstancesComponent implements OnInit {
   pagination: Pagination = new Pagination();
   searchWord = "";
 
-  constructor(private route: ActivatedRoute, private courseInstancesService: CourseInstanceService, private location: Location) {
+  constructor(private route: ActivatedRoute, private courseInstancesService: CourseInstanceControllerService, private location: Location) {
     this.route.queryParams.subscribe((params) => {
       this.courseId = params.courseId;
     });
@@ -35,7 +35,7 @@ export class CourseInstancesComponent implements OnInit {
   }
 
   getNextPage() {
-    this.courseInstancesService.getCourseInstances(this.courseId, this.pagination.currentPage - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+    this.courseInstancesService.getCourseInstancesUsingGET(this.courseId, this.pagination.currentPage - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
       this.courseInstances = coursesResponse.body;
     });
   }
@@ -44,7 +44,7 @@ export class CourseInstancesComponent implements OnInit {
     if (this.searchForm.valid) {
       this.pagination.resetPagination();
       this.searchWord = this.searchModel.search;
-      this.courseInstancesService.getCourseInstances(this.courseId, 0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+      this.courseInstancesService.getCourseInstancesUsingGET(this.courseId, 0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
         this.courseInstances = coursesResponse.body;
         this.pagination.setPaginationFromHeaders(coursesResponse.headers);
       });
@@ -56,7 +56,7 @@ export class CourseInstancesComponent implements OnInit {
     this.searchModel = {};
     this.searchWord = "";
     this.pagination.resetPagination();
-    this.courseInstancesService.getCourseInstances(this.courseId, 0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+    this.courseInstancesService.getCourseInstancesUsingGET(this.courseId, 0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
       this.courseInstances = coursesResponse.body;
       this.pagination.setPaginationFromHeaders(coursesResponse.headers);
     });

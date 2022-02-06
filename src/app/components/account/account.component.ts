@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AccountResponse, AccountService, PaymentResponse } from "src/app/api";
+import { AccountResponse, AccountControllerService, PaymentResponse } from "src/app/api";
 
 @Component({
   selector: "app-account",
@@ -7,7 +7,7 @@ import { AccountResponse, AccountService, PaymentResponse } from "src/app/api";
   styleUrls: ["./account.component.scss"],
 })
 export class AccountComponent implements OnInit {
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountControllerService) {}
   account: AccountResponse = {};
   payments: PaymentResponse[] = [];
   ngOnInit(): void {
@@ -16,11 +16,11 @@ export class AccountComponent implements OnInit {
   }
 
   loadAccount() {
-    this.accountService.getMyAccount("body").subscribe((res) => (this.account = res));
+    this.accountService.getMyAccountUsingGET("body").subscribe((res) => (this.account = res));
   }
 
   loadPayments() {
-    this.accountService.getMyPayments("body").subscribe((res) => {
+    this.accountService.getMyPaymentsUsingGET("body").subscribe((res) => {
       this.payments = res;
       this.payments.forEach((payment) => {
         var dateParts = payment.date.split("T");
@@ -30,6 +30,6 @@ export class AccountComponent implements OnInit {
   }
 
   addMoney(amount) {
-    this.accountService.makePayment(amount).subscribe(res=>this.loadPayments());
+    this.accountService.makePaymentUsingPOST(amount).subscribe(res=>this.loadPayments());
   }
 }

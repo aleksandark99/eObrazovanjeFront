@@ -13,9 +13,9 @@
 
 export interface RegisterRequest { 
     email?: string;
-    firstName: string;
-    lastName: string;
-    role: RegisterRequest.RoleEnum;
+    firstName?: string;
+    lastName?: string;
+    role?: RegisterRequest.RoleEnum;
 }
 export namespace RegisterRequest {
     export type RoleEnum = 'STUDENT' | 'PROFESSOR' | 'ASSISTANT';

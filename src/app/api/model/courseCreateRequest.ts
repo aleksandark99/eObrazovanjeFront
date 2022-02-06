@@ -12,7 +12,7 @@
 
 
 export interface CourseCreateRequest { 
-    ects: number;
-    name: string;
+    ects?: number;
+    name?: string;
 }
 

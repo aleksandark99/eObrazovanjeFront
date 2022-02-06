@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CourseService } from "src/app/api";
+import { CourseControllerService } from "src/app/api";
 import { CourseResponse } from "src/app/model/courseResponse";
 import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { FormGroup } from "@angular/forms";
@@ -17,14 +17,14 @@ export class CoursesComponent implements OnInit {
   searchWord = "";
   test: boolean = true;
   firstTimeLoad: boolean = true;
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseControllerService) {}
 
   ngOnInit(): void {
     this.loadCourses();
   }
 
   getNextPage(page) {
-    this.courseService.getCourses(page.page - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+    this.courseService.getCoursesUsingGET(page.page - 1, this.searchWord, 5, "response").subscribe((coursesResponse) => {
       this.courses = coursesResponse.body;
     });
   }
@@ -32,7 +32,7 @@ export class CoursesComponent implements OnInit {
   searchCourses(searchModel) {
     if (this.searchForm.valid) {
       this.searchWord = this.searchModel.search;
-      this.courseService.getCourses(0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
+      this.courseService.getCoursesUsingGET(0, this.searchWord, 5, "response").subscribe((coursesResponse) => {
         this.courses = coursesResponse.body;
         this.pagination.setPaginationFromHeaders(coursesResponse.headers);
       });
@@ -45,7 +45,7 @@ export class CoursesComponent implements OnInit {
     this.pagination.currentPage = 1;
     this.searchModel = {};
     this.searchWord = "";
-    this.courseService.getCourses(0, null, 5, "response").subscribe((coursesResponse) => {
+    this.courseService.getCoursesUsingGET(0, null, 5, "response").subscribe((coursesResponse) => {
       this.courses = coursesResponse.body;
       this.pagination.setPaginationFromHeaders(coursesResponse.headers);
     });
@@ -53,7 +53,7 @@ export class CoursesComponent implements OnInit {
 
   createNewCourse(model) {
     if (this.form.valid) {
-      this.courseService.createCourse(this.model, "response").subscribe((response) => {
+      this.courseService.createCourseUsingPOST(this.model, "response").subscribe((response) => {
         if (response.status != 201) alert("something wnet wrong try again later");
         else {
           this.options.resetModel();

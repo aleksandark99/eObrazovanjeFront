@@ -1,15 +1,16 @@
 .gitignore
 README.md
 api.module.ts
-api/account.service.ts
+api/accountController.service.ts
 api/api.ts
-api/course.service.ts
-api/courseInstance.service.ts
-api/enrollment.service.ts
-api/pet.service.ts
+api/authenticationController.service.ts
+api/courseController.service.ts
+api/courseInstanceController.service.ts
+api/enrollmentController.service.ts
+api/lecturerController.service.ts
 api/profileController.service.ts
 api/studentController.service.ts
-api/user.service.ts
+api/testController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -19,10 +20,7 @@ model/courseCreateRequest.ts
 model/courseInstanceResponse.ts
 model/courseResponse.ts
 model/enrollmentResponse.ts
-<<<<<<< HEAD
 model/lecturerDto.ts
-=======
->>>>>>> 7a5b030943daacc3ca40a5b9abdd7dad5246f362
 model/loginRequest.ts
 model/loginResponse.ts
 model/models.ts
@@ -31,6 +29,7 @@ model/petResponse.ts
 model/profileChangeDto.ts
 model/profileDto.ts
 model/registerRequest.ts
+model/searchLecturerDto.ts
 model/searchStudentDto.ts
 model/studentDto.ts
 variables.ts
