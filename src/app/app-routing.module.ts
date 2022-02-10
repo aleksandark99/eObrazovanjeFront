@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './components/account/account.component';
 import { CourseInstancesComponent } from './components/course-instances/course-instances.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { DocumentComponent } from './components/document/document.component';
 import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
 import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,8 +24,11 @@ const routes: Routes = [
   {path: 'course-instances', component: CourseInstancesComponent,canActivate:[AuthGuard]},
   {path: 'account', component: AccountComponent,canActivate:[AuthGuard]},
   {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
-  {path: 'lecturers', component: LecturerComponent,canActivate:[NotSignedIn]},
-  {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]}
+  {path: 'lecturers', component: LecturerComponent,canActivate:[AuthGuard]},
+  {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]},
+  {path: 'documents', component: DocumentComponent,canActivate:[AuthGuard]},
+  {path: 'student', component: ProfileComponent,canActivate:[AuthGuard]},
+  {path: 'lecturer', component: ProfileComponent,canActivate:[AuthGuard]},
 
 
   

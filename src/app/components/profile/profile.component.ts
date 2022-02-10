@@ -21,13 +21,14 @@ export class ProfileComponent implements OnInit {
   options: FormlyFormOptions = {};
   formlyObjectIsIndexOrCode = {};
   fields: FormlyFieldConfig[] = null;
-  pagination: Pagination = new Pagination();
 
  
   constructor(private profileService : ProfileControllerService ,private activatedRoute : ActivatedRoute,  private location: Location, private router: Router) { 
     this.userType = this.router.url.split('?')[0].split('/').pop();
     
   }
+
+ 
 
 
   ngOnInit(): void {
@@ -63,6 +64,10 @@ export class ProfileComponent implements OnInit {
     });
 
     
+  }
+
+  public test2(){
+    console.log("a")
   }
 
   private initFormlyObjectIsIndexOrCode(){

@@ -22,8 +22,8 @@
           <tbody>
             <tr *ngFor="let lecturer of lecturers; index as i; first as isFirst">
               <th scope="row">{{ i }}</th>
-              <td>{{ lecturer.firstName }}</td>
-              <td>{{ lecturer.lastName }}</td>
+              <td><a [routerLink]="['/lecturer']" [queryParams]="{ id: lecturer.id }"> {{ lecturer.firstName }} </a></td>
+            <td><a [routerLink]="['/lecturer']" [queryParams]="{ id: lecturer.id }"> {{ lecturer.lastName }} </a></td>
               <td>{{ lecturer.code }}</td>
             </tr>
           </tbody>

@@ -5,6 +5,11 @@
         <formly-form [model]="model" [fields]="fields" [form]="form"></formly-form>
         <button type="submit" class="btn btn-primary submit-button" [disabled]="!form.valid">Submit</button>
       </form>
+
+      <ng-container *ngIf="userType === 'student'" >
+        <a [routerLink]="['/documents']" [queryParams]="{ studentId: this.userId }"><button  class=" btn btn-primary button" (click)="test2()" style="margin-top: 5px; margin-bottom: 5px;" >Manage documents</button></a>
+      </ng-container>
+    
       <!-- <form [formGroup]="form">
         <formly-form [model]="model" [fields]="fields" [form]="form"></formly-form>
         <button type="submit" (click)="submit(model)" class="btn btn-primary submit-button" [disabled]="!form.valid">Submit</button>
