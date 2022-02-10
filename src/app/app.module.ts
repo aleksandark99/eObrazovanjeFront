@@ -29,6 +29,7 @@ import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { DocumentComponent } from './components/document/document.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
+import { DatePipe } from './utils/pipe-date';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.compo
     ProfileComponent,
     LecturerComponent,
     EnrollemntsComponent,
-    AccountComponent
+    AccountComponent,
+    DatePipe
   ],
   imports: [
     PaginationModule.forRoot(),

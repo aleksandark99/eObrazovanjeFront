@@ -10,10 +10,12 @@ export class DocumentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public fetchDocuments(studentId : Number ):  Document[] {
-    var d1 = new Document("a", 1, "a", "a");
-    var d2 = new Document("a", 1, "a", "a");
-    return [d1, d2];
+  public fetchDocuments(studentId : Number ):  Observable<any> {
+    return this.httpClient.get<any>("http://localhost:8080/documents/fetch/" + studentId, {
+      reportProgress: true,
+      observe: 'events'
+    });
+    
   }
 
   public uploadDocuments(formData: FormData): Observable<any> {

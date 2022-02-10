@@ -7,7 +7,7 @@
       </form>
 
       <ng-container *ngIf="userType === 'student'" >
-        <a [routerLink]="['/documents']" [queryParams]="{ studentId: this.userId }"><button  class=" btn btn-primary button" (click)="test2()" style="margin-top: 5px; margin-bottom: 5px;" >Manage documents</button></a>
+        <a [routerLink]="['/documents']" [queryParams]="{ studentId: this.userId }"><button  class=" btn btn-primary button"  style="margin-top: 5px; margin-bottom: 5px;" >Manage documents</button></a>
       </ng-container>
     
       <!-- <form [formGroup]="form">

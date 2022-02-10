@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   fields: FormlyFieldConfig[] = null;
 
  
-  constructor(private profileService : ProfileControllerService ,private activatedRoute : ActivatedRoute,  private location: Location, private router: Router) { 
+  constructor(private profileService : ProfileControllerService, private activatedRoute : ActivatedRoute,  private location: Location, private router: Router) { 
     this.userType = this.router.url.split('?')[0].split('/').pop();
     
   }
@@ -64,10 +64,6 @@ export class ProfileComponent implements OnInit {
     });
 
     
-  }
-
-  public test2(){
-    console.log("a")
   }
 
   private initFormlyObjectIsIndexOrCode(){
