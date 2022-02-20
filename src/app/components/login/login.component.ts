@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
      this.authService.login(this.loginDataForm)
      .then(res => {
       this.router.navigate(["/courses"])
-      console.log(this.authService.isLoggedIn)
     })
     .catch(err =>console.log("ERROR LOGGING IN: "+ err))
 

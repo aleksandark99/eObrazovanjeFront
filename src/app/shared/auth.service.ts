@@ -33,8 +33,6 @@ export class AuthService {
     var loginData= new LoginDataRequest(data.value);
      return this.http.post<any>(this.endpoint+"auth/login", loginData)
       .subscribe((res: any) => {
-        console.warn(res)
-        console.warn("AA" + res.token)
         localStorage.setItem('access_token', res.token)
       })
   }

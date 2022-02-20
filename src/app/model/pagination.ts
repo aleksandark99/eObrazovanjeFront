@@ -18,8 +18,6 @@ export class Pagination {
   }
 
   setPaginationFromHeaders(headers: HttpHeaders) {
-    console.log("current Page je"+parseInt(headers.get("Page")))
-    console.log("Total elements je"+parseInt(headers.get("Total-Elements")))
     this.currentPage = Number(headers.get("Page"))
     this.totalItems =  Number(headers.get("Total-Elements"))
     this.nextPage = Number(headers.get("Page"))

@@ -1,1 +1,24 @@
-<p>enrollemnts works!</p>
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 50px">
+    <div class="col-12">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Course name</th>
+            <th scope="col">Points</th>
+            <th scope="col">Passed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let enrollment of enrollments; index as i; first as isFirst">
+            <th scope="row">{{i}}</th>
+            <td>{{ enrollment.courseName }}</td>
+            <td>{{ enrollment.points }}</td>
+            <td>{{ enrollment.passed }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -7,10 +7,10 @@ import { AuthenticationControllerService } from './api/authenticationController.
 import { CourseControllerService } from './api/courseController.service';
 import { CourseInstanceControllerService } from './api/courseInstanceController.service';
 import { EnrollmentControllerService } from './api/enrollmentController.service';
+import { ExamPeriodControllerService } from './api/examPeriodController.service';
 import { LecturerControllerService } from './api/lecturerController.service';
 import { ProfileControllerService } from './api/profileController.service';
 import { StudentControllerService } from './api/studentController.service';
-import { TestControllerService } from './api/testController.service';
 
 @NgModule({
   imports:      [],

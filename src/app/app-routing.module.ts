@@ -7,6 +7,7 @@ import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.compo
 import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterForTestComponent } from './components/register-for-test/register-for-test.component';
 import { RegisterComponent } from './components/register/register.component';
 import { StudentsComponent } from './components/students/students.component';
 import { AuthGuard } from './guards/auth.guard'
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'account', component: AccountComponent,canActivate:[AuthGuard]},
   {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
   {path: 'lecturers', component: LecturerComponent,canActivate:[NotSignedIn]},
-  {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]}
+  {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]},
+  {path: 'register-test', component: RegisterForTestComponent,canActivate:[AuthGuard]}
 
 
   

@@ -15,8 +15,6 @@ export class CoursesComponent implements OnInit {
   courses: CourseResponse[] = [];
   pagination: Pagination = new Pagination();
   searchWord = "";
-  test: boolean = true;
-  firstTimeLoad: boolean = true;
   constructor(private courseService: CourseControllerService) {}
 
   ngOnInit(): void {

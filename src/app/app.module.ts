@@ -29,6 +29,9 @@ import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { DocumentComponent } from './components/document/document.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
+import { EnrollmentComponent } from './components/enrollment/enrollment.component';
+import { RegisterForTestComponent } from './components/register-for-test/register-for-test.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.compo
     ProfileComponent,
     LecturerComponent,
     EnrollemntsComponent,
-    AccountComponent
+    AccountComponent,
+    EnrollmentComponent,
+    RegisterForTestComponent
   ],
   imports: [
     PaginationModule.forRoot(),
@@ -59,7 +64,8 @@ import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.compo
     FormsModule,
     ReactiveFormsModule,
     FormlyModule.forRoot(),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    SelectDropDownModule
   ],
   providers: [
     {
