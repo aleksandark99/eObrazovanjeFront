@@ -32,6 +32,7 @@ import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.compo
 import { EnrollmentComponent } from './components/enrollment/enrollment.component';
 import { RegisterForTestComponent } from './components/register-for-test/register-for-test.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { DatePipe } from './utils/pipe-date';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     EnrollemntsComponent,
     AccountComponent,
     EnrollmentComponent,
-    RegisterForTestComponent
+    RegisterForTestComponent,
+    DatePipe
   ],
   imports: [
     PaginationModule.forRoot(),
