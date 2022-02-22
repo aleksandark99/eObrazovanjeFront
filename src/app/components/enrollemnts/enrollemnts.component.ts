@@ -16,10 +16,6 @@ export class EnrollemntsComponent implements OnInit {
     this.loadStudentsEnrollments();
   }
 
-  
-
-  
-  // also for resetting search
   loadStudentsEnrollments() {
     this.enrollmentService.getMyEnrollmentsUsingGET('body').subscribe(response => this.enrollments=response)
   }

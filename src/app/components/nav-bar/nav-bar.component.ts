@@ -14,4 +14,20 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.authService.doLogout();
   }
+
+  isAdmin() {
+    return this.authService.getRole() == "ROLE_ADMIN";
+  }
+
+  isStudent() {
+    return this.authService.getRole() == "ROLE_STUDENT";
+  }
+
+  isProfessor() {
+    return this.authService.getRole() == "ROLE_PROFESSOR";
+  }
+
+  isLoggedIn() {
+    return this.authService.getToken() ? true : false;
+  }
 }

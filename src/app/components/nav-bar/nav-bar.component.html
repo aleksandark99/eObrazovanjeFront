@@ -6,44 +6,47 @@
   </button>
   <ngx-navbar-collapse id="main-nav" #collapse="ngxNavbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <!-- <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/courses']" *ngIf="isAdmin()">Courses</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/courses']">Courses</a>
+        <a class="nav-link" [routerLink]="['/course-instances']" *ngIf="isAdmin() || isProfessor()">Course Instances</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/course-instances']">Course Instances</a>
+        <a class="nav-link" [routerLink]="['/students']" *ngIf="isAdmin()">Students</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/students']">Students</a>
+        <a class="nav-link" [routerLink]="['/lecturers']" *ngIf="isAdmin()">Lecturers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/lecturers']">Lecturers</a>
+        <a class="nav-link" [routerLink]="['/account']" *ngIf="isStudent()">Account</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/account']">Account</a>
+        <a class="nav-link" [routerLink]="['/enrollments']" *ngIf="isStudent()">My Enrollments</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/enrollments']">My Enrollments</a>
+        <a class="nav-link" [routerLink]="['/lecture-instances']" *ngIf="isProfessor()">My Lectures</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/lecture-instances']">My Lectures</a>
+        <a class="nav-link" [routerLink]="['/register-test']" *ngIf="isStudent()">Register for test</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/register-test']">Test</a>
+        <a class="nav-link" [routerLink]="['/tests']" *ngIf="isStudent()">My tests</a>
       </li>
     </ul>
     <div class="ml-auto">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <button type="button" class="btn btn-warning" [routerLink]="['/login']">Login</button>
+          <button type="button" class="btn btn-warning" [routerLink]="['/login']" *ngIf="!isLoggedIn()">Login</button>
         </li>
         <li class="nav-item" style="margin-left: 10px">
-          <button type="button" class="btn btn-warning" [routerLink]="['/register']">Register</button>
+          <button type="button" class="btn btn-warning" [routerLink]="['/register']" *ngIf="!isLoggedIn()">Register</button>
         </li>
         <li class="nav-item" style="margin-left: 10px">
-          <button type="button" class="btn btn-warning" (click)="logout()">Logout</button>
+          <button type="button" class="btn btn-warning" (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
         </li>
       </ul>
     </div>

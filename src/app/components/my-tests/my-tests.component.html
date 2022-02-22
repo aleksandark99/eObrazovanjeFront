@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 50px">
+      <div class="col-12">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Course name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Points</th>
+              <th scope="col">Is Graded</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let test of tests; index as i; first as isFirst">
+              <th scope="row">{{i}}</th>
+              <td>{{ test.courseName }}</td>
+              <td>{{ test.date }}</td>
+              <td>{{ test.points }}</td>
+              <td>{{ test.isGraded }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

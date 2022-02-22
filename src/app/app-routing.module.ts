@@ -7,6 +7,7 @@ import { DocumentComponent } from './components/document/document.component';
 import { EnrollemntsComponent } from './components/enrollemnts/enrollemnts.component';
 import { LecturerComponent } from './components/lecturer/lecturer.component';
 import { LoginComponent } from './components/login/login.component';
+import { MyTestsComponent } from './components/my-tests/my-tests.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterForTestComponent } from './components/register-for-test/register-for-test.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,8 +25,8 @@ const routes: Routes = [
   {path: 'students', component: StudentsComponent,canActivate:[AuthGuard]},
   {path: 'course-instances', component: CourseInstancesComponent,canActivate:[AuthGuard]},
   {path: 'account', component: AccountComponent,canActivate:[AuthGuard]},
-  {path: 'students', component: StudentsComponent,canActivate:[NotSignedIn]},
-  {path: 'lecturers', component: LecturerComponent,canActivate:[NotSignedIn]},
+  {path: 'students', component: StudentsComponent,canActivate:[AuthGuard]},
+  {path: 'lecturers', component: LecturerComponent,canActivate:[AuthGuard]},
   {path: 'enrollments', component: EnrollemntsComponent,canActivate:[AuthGuard]},
   {path: 'register-test', component: RegisterForTestComponent,canActivate:[AuthGuard]},
   {path: 'lecturers', component: LecturerComponent,canActivate:[AuthGuard]},
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'documents', component: DocumentComponent,canActivate:[AuthGuard]},
   {path: 'student', component: ProfileComponent,canActivate:[AuthGuard]},
   {path: 'lecturer', component: ProfileComponent,canActivate:[AuthGuard]},
+  {path: 'tests', component: MyTestsComponent,canActivate:[AuthGuard]},
 
 
   

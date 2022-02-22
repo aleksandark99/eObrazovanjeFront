@@ -34,7 +34,13 @@ export class AuthService {
      return this.http.post<any>(this.endpoint+"auth/login", loginData)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token)
+        localStorage.setItem('role', res.role)
+        this.router.navigate(["/account"])
       })
+  }
+
+  getRole(){
+    return localStorage.getItem('role');
   }
 
   getToken() {
@@ -43,11 +49,13 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
+    
     return (authToken !== null) ? true : false;
   }
 
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
+    let removeRole = localStorage.removeItem('role');
     if (removeToken == null) {
       this.router.navigate(["/login"]);
     }
