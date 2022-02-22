@@ -13,7 +13,7 @@
         <a class="nav-link" [routerLink]="['/courses']" *ngIf="isAdmin()">Courses</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/course-instances']" *ngIf="isAdmin() || isProfessor()">Course Instances</a>
+        <a class="nav-link" [routerLink]="['/course-instances']" *ngIf="isAdmin()">Course Instances</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/students']" *ngIf="isAdmin()">Students</a>
@@ -35,6 +35,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/tests']" *ngIf="isStudent()">My tests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/student']"[queryParams]="{ id: getUserId() }" *ngIf="isStudent()">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/lecturer']"[queryParams]="{ id: getUserId() }" *ngIf="isProfessor()">Profile</a>
       </li>
     </ul>
     <div class="ml-auto">

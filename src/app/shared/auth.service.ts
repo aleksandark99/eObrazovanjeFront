@@ -35,12 +35,17 @@ export class AuthService {
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token)
         localStorage.setItem('role', res.role)
+        localStorage.setItem('userId', res.userId)
         this.router.navigate(["/account"])
       })
   }
 
   getRole(){
     return localStorage.getItem('role');
+  }
+
+  getUserId(){
+    return localStorage.getItem('userId');
   }
 
   getToken() {
