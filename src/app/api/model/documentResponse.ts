@@ -11,9 +11,10 @@
  */
 
 
-export interface LoginResponse { 
-    role?: string;
-    token?: string;
-    userId?: number;
+export interface DocumentResponse { 
+    createdAt?: string;
+    documentId?: number;
+    documentTitle?: string;
+    url?: string;
 }
 

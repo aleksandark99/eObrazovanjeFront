@@ -6,6 +6,7 @@ import { AccountControllerService } from './api/accountController.service';
 import { AuthenticationControllerService } from './api/authenticationController.service';
 import { CourseControllerService } from './api/courseController.service';
 import { CourseInstanceControllerService } from './api/courseInstanceController.service';
+import { DocumentControllerService } from './api/documentController.service';
 import { EnrollmentControllerService } from './api/enrollmentController.service';
 import { ExamPeriodControllerService } from './api/examPeriodController.service';
 import { LecturerControllerService } from './api/lecturerController.service';

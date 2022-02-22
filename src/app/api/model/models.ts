@@ -2,6 +2,7 @@ export * from './accountResponse';
 export * from './courseCreateRequest';
 export * from './courseInstanceResponse';
 export * from './courseResponse';
+export * from './documentResponse';
 export * from './enrollmentResponse';
 export * from './examPeriod';
 export * from './lecturerDto';

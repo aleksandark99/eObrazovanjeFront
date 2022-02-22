@@ -19,9 +19,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { LecturerDto } from '../model/lecturerDto';
-// @ts-ignore
-import { SearchLecturerDto } from '../model/searchLecturerDto';
+import { DocumentResponse } from '../model/documentResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -32,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class LecturerControllerService {
+export class DocumentControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -52,6 +50,19 @@ export class LecturerControllerService {
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
 
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    private canConsumeForm(consumes: string[]): boolean {
+        const form = 'multipart/form-data';
+        for (const consume of consumes) {
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
         if (typeof value === "object" && value instanceof Date === false) {
@@ -90,21 +101,17 @@ export class LecturerControllerService {
     }
 
     /**
-     * addLecturerToCourse
-     * @param courseInstanceId courseInstanceId
-     * @param lecturerId lecturerId
+     * fetchDocuments
+     * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<string>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<string>>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<string>>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (courseInstanceId === null || courseInstanceId === undefined) {
-            throw new Error('Required parameter courseInstanceId was null or undefined when calling addLecturerToCourseUsingPUT.');
-        }
-        if (lecturerId === null || lecturerId === undefined) {
-            throw new Error('Required parameter lecturerId was null or undefined when calling addLecturerToCourseUsingPUT.');
+    public fetchDocumentsUsingGET(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<DocumentResponse>>;
+    public fetchDocumentsUsingGET(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<DocumentResponse>>>;
+    public fetchDocumentsUsingGET(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<DocumentResponse>>>;
+    public fetchDocumentsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling fetchDocumentsUsingGET.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -132,8 +139,7 @@ export class LecturerControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.put<string>(`${this.configuration.basePath}/lecturer/${encodeURIComponent(String(lecturerId))}/${encodeURIComponent(String(courseInstanceId))}`,
-            null,
+        return this.httpClient.get<Array<DocumentResponse>>(`${this.configuration.basePath}/documents/fetch/${encodeURIComponent(String(id))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -146,17 +152,17 @@ export class LecturerControllerService {
     }
 
     /**
-     * getLecturersNotInCourseInstance
-     * @param courseInstanceId courseInstanceId
+     * uploadDocuments
+     * @param files files
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getLecturersNotInCourseInstanceUsingGET(courseInstanceId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<LecturerDto>>;
-    public getLecturersNotInCourseInstanceUsingGET(courseInstanceId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<LecturerDto>>>;
-    public getLecturersNotInCourseInstanceUsingGET(courseInstanceId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<LecturerDto>>>;
-    public getLecturersNotInCourseInstanceUsingGET(courseInstanceId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (courseInstanceId === null || courseInstanceId === undefined) {
-            throw new Error('Required parameter courseInstanceId was null or undefined when calling getLecturersNotInCourseInstanceUsingGET.');
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<DocumentResponse>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<DocumentResponse>>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<DocumentResponse>>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (files === null || files === undefined) {
+            throw new Error('Required parameter files was null or undefined when calling uploadDocumentsUsingPOST.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -177,70 +183,34 @@ export class LecturerControllerService {
         if (localVarHttpContext === undefined) {
             localVarHttpContext = new HttpContext();
         }
-
-
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
-        }
-
-        return this.httpClient.get<Array<LecturerDto>>(`${this.configuration.basePath}/lecturer/not-in-course/${encodeURIComponent(String(courseInstanceId))}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * searchLecturer
-     * @param courseInstanceId courseInstanceId
-     * @param searchLecturerDto searchLecturerDto
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public searchLecturerUsingPOST(courseInstanceId: number, searchLecturerDto: SearchLecturerDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<LecturerDto>>;
-    public searchLecturerUsingPOST(courseInstanceId: number, searchLecturerDto: SearchLecturerDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<LecturerDto>>>;
-    public searchLecturerUsingPOST(courseInstanceId: number, searchLecturerDto: SearchLecturerDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<LecturerDto>>>;
-    public searchLecturerUsingPOST(courseInstanceId: number, searchLecturerDto: SearchLecturerDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (courseInstanceId === null || courseInstanceId === undefined) {
-            throw new Error('Required parameter courseInstanceId was null or undefined when calling searchLecturerUsingPOST.');
-        }
-        if (searchLecturerDto === null || searchLecturerDto === undefined) {
-            throw new Error('Required parameter searchLecturerDto was null or undefined when calling searchLecturerUsingPOST.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json'
+            'multipart/form-data'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let localVarFormParams: { append(param: string, value: any): any; };
+        let localVarUseForm = false;
+        let localVarConvertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        localVarUseForm = canConsumeForm;
+        if (localVarUseForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new HttpParams({encoder: this.encoder});
+        }
+
+        if (files) {
+            if (localVarUseForm) {
+                files.forEach((element) => {
+                    localVarFormParams = localVarFormParams.append('files', <any>element) as any || localVarFormParams;
+            })
+            } else {
+                localVarFormParams = localVarFormParams.append('files', files.join(COLLECTION_FORMATS['csv'])) as any || localVarFormParams;
+            }
         }
 
         let responseType_: 'text' | 'json' = 'json';
@@ -248,8 +218,8 @@ export class LecturerControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<Array<LecturerDto>>(`${this.configuration.basePath}/lecturer/${encodeURIComponent(String(courseInstanceId))}`,
-            searchLecturerDto,
+        return this.httpClient.post<Array<DocumentResponse>>(`${this.configuration.basePath}/documents/upload`,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

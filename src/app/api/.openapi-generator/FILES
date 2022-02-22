@@ -6,6 +6,7 @@ api/api.ts
 api/authenticationController.service.ts
 api/courseController.service.ts
 api/courseInstanceController.service.ts
+api/documentController.service.ts
 api/enrollmentController.service.ts
 api/examPeriodController.service.ts
 api/lecturerController.service.ts
@@ -20,6 +21,7 @@ model/accountResponse.ts
 model/courseCreateRequest.ts
 model/courseInstanceResponse.ts
 model/courseResponse.ts
+model/documentResponse.ts
 model/enrollmentResponse.ts
 model/examPeriod.ts
 model/lecturerDto.ts
