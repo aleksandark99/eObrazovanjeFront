@@ -1,14 +1,16 @@
 <div class="container" style="margin-top: 50px">
   <div class="row justify-content-cente">
     <div class="col-12">
-        <h3>Select Exam Period</h3>
-        <ngx-select-dropdown (change)="selectionChanged($event)" tabindex="0" [multiple]="false" [(ngModel)]="singleSelect" [config]="config" [options]="optionsExamPeriod"></ngx-select-dropdown>
+      <h3>Select Exam Period</h3>
+      <ngx-select-dropdown (change)="selectionChanged($event)" tabindex="0" [multiple]="false" [(ngModel)]="singleSelect" [config]="config" [options]="optionsExamPeriod"></ngx-select-dropdown>
     </div>
-    <div class="col-12" style="margin-top: 20px;" >
+    <div class="col-12" style="margin-top: 20px">
       <h3>Select Test</h3>
-
-      <ngx-select-dropdown   tabindex="0" [multiple]="false" [(ngModel)]="singleSelect2" [config]="config2" [options]="optionsTest"></ngx-select-dropdown>
-
+      <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="singleSelect2" [config]="config2" [options]="optionsTest"></ngx-select-dropdown>
+    </div>
+    <div class="col-12" style="margin-top: 20px">
+      <!-- <h3>Register</h3> -->
+      <button (click)="registerForTest()" class="btn btn-warning">Register</button>
     </div>
   </div>
 </div>
