@@ -16,4 +16,6 @@ export * from './profileController.service';
 import { ProfileControllerService } from './profileController.service';
 export * from './studentController.service';
 import { StudentControllerService } from './studentController.service';
-export const APIS = [AccountControllerService, AuthenticationControllerService, CourseControllerService, CourseInstanceControllerService, EnrollmentControllerService, ExamPeriodControllerService, LecturerControllerService, ProfileControllerService, StudentControllerService];
+export * from './testController.service';
+import { TestControllerService } from './testController.service';
+export const APIS = [AccountControllerService, AuthenticationControllerService, CourseControllerService, CourseInstanceControllerService, EnrollmentControllerService, ExamPeriodControllerService, LecturerControllerService, ProfileControllerService, StudentControllerService, TestControllerService];

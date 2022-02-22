@@ -11,6 +11,7 @@ import { ExamPeriodControllerService } from './api/examPeriodController.service'
 import { LecturerControllerService } from './api/lecturerController.service';
 import { ProfileControllerService } from './api/profileController.service';
 import { StudentControllerService } from './api/studentController.service';
+import { TestControllerService } from './api/testController.service';
 
 @NgModule({
   imports:      [],

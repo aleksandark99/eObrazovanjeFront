@@ -11,6 +11,7 @@ api/examPeriodController.service.ts
 api/lecturerController.service.ts
 api/profileController.service.ts
 api/studentController.service.ts
+api/testController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -33,4 +34,6 @@ model/searchLecturerDto.ts
 model/searchStudentDto.ts
 model/studentDto.ts
 model/test.ts
+model/testInstance.ts
+model/testInstanceRequest.ts
 variables.ts

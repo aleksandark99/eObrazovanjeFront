@@ -11,12 +11,11 @@
  */
 
 
-export interface Test { 
+export interface TestInstance { 
+    courseName?: string;
     date?: string;
-    description?: string;
     id?: number;
-    maxPoints?: number;
-    place?: string;
-    title?: string;
+    isGraded?: boolean;
+    points?: number;
 }
 

@@ -11,10 +11,10 @@
  */
 
 
-export interface Test { 
+export interface TestInstanceRequest { 
+    courseInstanceId?: number;
     date?: string;
-    description?: string;
-    id?: number;
+    examPeriodId?: number;
     maxPoints?: number;
     place?: string;
     title?: string;

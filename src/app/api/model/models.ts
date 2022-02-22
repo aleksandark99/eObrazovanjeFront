@@ -15,3 +15,5 @@ export * from './searchLecturerDto';
 export * from './searchStudentDto';
 export * from './studentDto';
 export * from './test';
+export * from './testInstance';
+export * from './testInstanceRequest';
