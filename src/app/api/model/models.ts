@@ -7,6 +7,7 @@ export * from './createCourseInstanceDto';
 export * from './documentResponse';
 export * from './enrollmentResponse';
 export * from './examPeriod';
+export * from './lectureInstanceResponse';
 export * from './lecturerDto';
 export * from './loginRequest';
 export * from './loginResponse';

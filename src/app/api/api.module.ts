@@ -9,6 +9,7 @@ import { CourseInstanceControllerService } from './api/courseInstanceController.
 import { DocumentControllerService } from './api/documentController.service';
 import { EnrollmentControllerService } from './api/enrollmentController.service';
 import { ExamPeriodControllerService } from './api/examPeriodController.service';
+import { LectureInstancesControllerService } from './api/lectureInstancesController.service';
 import { LecturerControllerService } from './api/lecturerController.service';
 import { ProfileControllerService } from './api/profileController.service';
 import { StudentControllerService } from './api/studentController.service';

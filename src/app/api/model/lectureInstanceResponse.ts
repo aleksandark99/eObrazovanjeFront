@@ -11,11 +11,9 @@
  */
 
 
-export interface CourseInstanceResponse { 
-    description?: string;
-    endDate?: string;
-    id?: number;
-    name?: string;
-    startDate?: string;
+export interface LectureInstanceResponse { 
+    courseDescription?: string;
+    courseInstanceId?: number;
+    courseName?: string;
 }
 

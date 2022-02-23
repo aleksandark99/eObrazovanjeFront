@@ -9,6 +9,7 @@ api/courseInstanceController.service.ts
 api/documentController.service.ts
 api/enrollmentController.service.ts
 api/examPeriodController.service.ts
+api/lectureInstancesController.service.ts
 api/lecturerController.service.ts
 api/profileController.service.ts
 api/studentController.service.ts
@@ -22,13 +23,11 @@ model/courseCreateRequest.ts
 model/courseInstanceCreationResponseDto.ts
 model/courseInstanceResponse.ts
 model/courseResponse.ts
-<<<<<<< HEAD
 model/createCourseInstanceDto.ts
-=======
->>>>>>> main
 model/documentResponse.ts
 model/enrollmentResponse.ts
 model/examPeriod.ts
+model/lectureInstanceResponse.ts
 model/lecturerDto.ts
 model/loginRequest.ts
 model/loginResponse.ts
