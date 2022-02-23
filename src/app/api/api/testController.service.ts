@@ -258,15 +258,15 @@ export class TestControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public gradeTestUsingPUT(points: number, testInstanceId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<string>;
-    public gradeTestUsingPUT(points: number, testInstanceId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<string>>;
-    public gradeTestUsingPUT(points: number, testInstanceId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<string>>;
-    public gradeTestUsingPUT(points: number, testInstanceId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public gradeTestUsingPOST(points: number, testInstanceId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<string>;
+    public gradeTestUsingPOST(points: number, testInstanceId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<string>>;
+    public gradeTestUsingPOST(points: number, testInstanceId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<string>>;
+    public gradeTestUsingPOST(points: number, testInstanceId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (points === null || points === undefined) {
-            throw new Error('Required parameter points was null or undefined when calling gradeTestUsingPUT.');
+            throw new Error('Required parameter points was null or undefined when calling gradeTestUsingPOST.');
         }
         if (testInstanceId === null || testInstanceId === undefined) {
-            throw new Error('Required parameter testInstanceId was null or undefined when calling gradeTestUsingPUT.');
+            throw new Error('Required parameter testInstanceId was null or undefined when calling gradeTestUsingPOST.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
@@ -304,7 +304,7 @@ export class TestControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.put<string>(`${this.configuration.basePath}/tests`,
+        return this.httpClient.post<string>(`${this.configuration.basePath}/tests/grade-tests`,
             null,
             {
                 context: localVarHttpContext,
