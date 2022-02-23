@@ -96,15 +96,15 @@ export class LecturerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<string>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<string>>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<string>>;
-    public addLecturerToCourseUsingPUT(courseInstanceId: number, lecturerId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+    public addLecturerToCourseUsingPOST(courseInstanceId: number, lecturerId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<string>;
+    public addLecturerToCourseUsingPOST(courseInstanceId: number, lecturerId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<string>>;
+    public addLecturerToCourseUsingPOST(courseInstanceId: number, lecturerId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<string>>;
+    public addLecturerToCourseUsingPOST(courseInstanceId: number, lecturerId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
         if (courseInstanceId === null || courseInstanceId === undefined) {
-            throw new Error('Required parameter courseInstanceId was null or undefined when calling addLecturerToCourseUsingPUT.');
+            throw new Error('Required parameter courseInstanceId was null or undefined when calling addLecturerToCourseUsingPOST.');
         }
         if (lecturerId === null || lecturerId === undefined) {
-            throw new Error('Required parameter lecturerId was null or undefined when calling addLecturerToCourseUsingPUT.');
+            throw new Error('Required parameter lecturerId was null or undefined when calling addLecturerToCourseUsingPOST.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -132,7 +132,7 @@ export class LecturerControllerService {
             responseType_ = 'text';
         }
 
-        return this.httpClient.put<string>(`${this.configuration.basePath}/lecturer/${encodeURIComponent(String(lecturerId))}/${encodeURIComponent(String(courseInstanceId))}`,
+        return this.httpClient.post<string>(`${this.configuration.basePath}/lecturer/${encodeURIComponent(String(lecturerId))}/${encodeURIComponent(String(courseInstanceId))}`,
             null,
             {
                 context: localVarHttpContext,
