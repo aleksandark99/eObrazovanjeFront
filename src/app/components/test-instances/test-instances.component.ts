@@ -27,7 +27,9 @@ export class TestInstancesComponent implements OnInit {
 
   gradeTest(model){
     if(this.form.valid){
-      console.log(model)
+      this.testInstanceService.gradeTestUsingPOST(model.points,model.testInstanceId,'response').toPromise()
+      .then(res=> alert("Test graded"))
+      .catch(err => console.warn(err))
     }else{
       alert("Incomplete form")
     }
