@@ -17,5 +17,6 @@ export interface TestInstanceWithUser {
     id?: number;
     isGraded?: boolean;
     points?: number;
+    userName?: string;
 }
 
