@@ -38,6 +38,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MyLecturesComponent } from './components/my-lectures/my-lectures.component';
+import { TestsComponent } from './components/tests/tests.component';
+import { TestInstancesComponent } from './components/test-instances/test-instances.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     EnrollmentComponent,
     RegisterForTestComponent,
     DatePipe,
-    MyTestsComponent
+    MyTestsComponent,
+    MyLecturesComponent,
+    TestsComponent,
+    TestInstancesComponent
   ],
   imports: [
     PaginationModule.forRoot(),

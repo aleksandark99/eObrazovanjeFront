@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 50px">
+    <div class="col-12">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Course name</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lecture of lectures; index as i; first as isFirst">
+            <th scope="row">{{ i }}</th>
+            <td>
+              <a [routerLink]="['/course-tests']" [queryParams]="{ courseInstanceId: 1 }"> {{ lecture.courseName }} </a>
+            </td>
+            <td>{{ lecture.courseDescription }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
