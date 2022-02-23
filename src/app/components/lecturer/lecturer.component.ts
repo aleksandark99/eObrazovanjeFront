@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { Pagination } from "src/app/model/pagination";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
@@ -19,11 +19,11 @@ export class LecturerComponent implements OnInit {
   searchWord = "";
   courseInstanceId: number;
   modalRef?: BsModalRef;
-  aaa="asdsdasd"
-  constructor(private lecturerService: LecturerControllerService, private router: ActivatedRoute, private location: Location,private modalService: BsModalService) {}
+  lecturersNotInCourse: LecturerDto[] = [];
+  constructor(private lecturerService: LecturerControllerService, private router: Router, private activatedRoute: ActivatedRoute, private location: Location, private modalService: BsModalService) {}
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((params) => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       var isInt = /^\+?\d+$/.test(params.courseInstanceId); //regex check to isInt
       if (!isInt) {
         this.location.replaceState("/lecturer");
@@ -101,12 +101,30 @@ export class LecturerComponent implements OnInit {
     },
   ];
 
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+    this.lecturerService.getLecturersNotInCourseInstanceUsingGET(this.courseInstanceId, "body").subscribe((res) => {
+      this.lecturerOptions = res;
+      this.lecturerOptions.forEach((user) => {
+        user.firstName = user.firstName + " " + user.lastName + " " + user.code;
+      });
+    });
   }
 
-  isCourseInstanceSelected(){
-    return this.courseInstanceId>0;
+  isCourseInstanceSelected() {
+    return this.courseInstanceId > 0;
+  }
+
+  lecturerOptions = [];
+  singleSelect: any = null;
+  config = {
+    displayKey: "firstName", // if objects array passed which key to be displayed defaults to description
+  };
+  async addLecturerToCourse() {
+    await this.lecturerService
+      .addLecturerToCourseUsingPOST(this.courseInstanceId, this.singleSelect.id, "body").subscribe(res => console.log("sucess"));
+      this.router.navigate(["/course-instances"]);
+      this.modalRef?.hide();
+
   }
 }
