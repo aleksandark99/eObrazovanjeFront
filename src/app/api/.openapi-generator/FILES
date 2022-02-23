@@ -42,4 +42,5 @@ model/studentDto.ts
 model/test.ts
 model/testInstance.ts
 model/testInstanceRequest.ts
+model/testInstanceWithUser.ts
 variables.ts

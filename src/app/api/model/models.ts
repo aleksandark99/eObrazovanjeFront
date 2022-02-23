@@ -21,3 +21,4 @@ export * from './studentDto';
 export * from './test';
 export * from './testInstance';
 export * from './testInstanceRequest';
+export * from './testInstanceWithUser';
