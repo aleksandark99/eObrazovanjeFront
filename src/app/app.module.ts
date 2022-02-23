@@ -34,6 +34,9 @@ import { RegisterForTestComponent } from './components/register-for-test/registe
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { DatePipe } from './utils/pipe-date';
 import { MyTestsComponent } from './components/my-tests/my-tests.component';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,12 @@ import { MyTestsComponent } from './components/my-tests/my-tests.component';
     ReactiveFormsModule,
     FormlyModule.forRoot(),
     FormlyBootstrapModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    ModalModule.forRoot(),
+  
+    CollapseModule,
+    BsDatepickerModule.forRoot()
+    
   ],
   providers: [
     {

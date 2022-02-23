@@ -1,10 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { CourseControllerService } from "src/app/api";
+import { CourseControllerService, CourseInstanceControllerService } from "src/app/api";
 import { CourseResponse } from "src/app/model/courseResponse";
 import { PageChangedEvent } from "ngx-bootstrap/pagination";
 import { FormGroup } from "@angular/forms";
 import { FormlyFormOptions, FormlyFieldConfig } from "@ngx-formly/core";
 import { Pagination } from "src/app/model/pagination";
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { TemplateRef } from '@angular/core';
+import { CourseInstanceService } from "src/app/api/api/courseInstance.service";
+
 
 @Component({
   selector: "app-courses",
@@ -15,7 +19,48 @@ export class CoursesComponent implements OnInit {
   courses: CourseResponse[] = [];
   pagination: Pagination = new Pagination();
   searchWord = "";
-  constructor(private courseService: CourseControllerService) {}
+  selectedCourseName = "";
+  selectedCourseId = -1;
+  dateStart = null;
+  dateEnd = null;
+  modalRef?: BsModalRef;
+  constructor(private courseService: CourseControllerService, private modalService: BsModalService, private courseInstanceService : CourseInstanceControllerService) {}
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+
+  }
+
+  selectCourseIndex(i){
+    this.selectedCourseName = this.courses[i].name;
+    this.selectedCourseId = this.courses[i]['id'];
+  }
+
+  createInstance(){
+  
+    // 'i' is 'id' property of selected 'CourseResponse' object
+    var course = this.courses.find(course => course['id'] === this.selectedCourseId)
+    console.log(course)
+    this.courseInstanceService.createCourseInstanceUsingPOST({courseId : course['id'], startDate : this.dateStart, endDate : this.dateEnd }).subscribe((courseInstanceCreationResponse) => {
+     // this.courses = coursesResponse.body;
+     if (!courseInstanceCreationResponse.successful){
+        alert(courseInstanceCreationResponse.reason)
+     } else {
+        alert("You have successufly create course instance for course: " + this.selectedCourseName)
+        window.location.reload();
+     }
+      
+    });
+  }
+    
+  
+
+  onDateChange($event){
+    console.log($event)
+    this.dateStart = $event[0].getTime();
+    this.dateEnd = $event[1].getTime();
+
+  }
 
   ngOnInit(): void {
     this.loadCourses();
@@ -60,6 +105,12 @@ export class CoursesComponent implements OnInit {
       });
     }
   }
+
+  //popup modal start
+
+  //popup modal end
+
+
   // FORMS FORMS FORMS FORMS FORMS FORMS FORMS FORMS
   form = new FormGroup({});
 

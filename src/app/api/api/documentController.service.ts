@@ -19,11 +19,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { CourseInstanceCreationResponseDto } from '../model/courseInstanceCreationResponseDto';
-// @ts-ignore
-import { CourseInstanceResponse } from '../model/courseInstanceResponse';
-// @ts-ignore
-import { CreateCourseInstanceDto } from '../model/createCourseInstanceDto';
+import { DocumentResponse } from '../model/documentResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -34,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class CourseInstanceControllerService {
+export class DocumentControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -54,6 +50,19 @@ export class CourseInstanceControllerService {
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
 
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    private canConsumeForm(consumes: string[]): boolean {
+        const form = 'multipart/form-data';
+        for (const consume of consumes) {
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
         if (typeof value === "object" && value instanceof Date === false) {
@@ -92,17 +101,17 @@ export class CourseInstanceControllerService {
     }
 
     /**
-     * createCourseInstance
-     * @param createCourseInstanceDto createCourseInstanceDto
+     * fetchDocuments
+     * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CourseInstanceCreationResponseDto>;
-    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CourseInstanceCreationResponseDto>>;
-    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CourseInstanceCreationResponseDto>>;
-    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (createCourseInstanceDto === null || createCourseInstanceDto === undefined) {
-            throw new Error('Required parameter createCourseInstanceDto was null or undefined when calling createCourseInstanceUsingPOST.');
+    public fetchDocumentsUsingGET(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<DocumentResponse>>;
+    public fetchDocumentsUsingGET(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<DocumentResponse>>>;
+    public fetchDocumentsUsingGET(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<DocumentResponse>>>;
+    public fetchDocumentsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling fetchDocumentsUsingGET.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -125,22 +134,12 @@ export class CourseInstanceControllerService {
         }
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
         let responseType_: 'text' | 'json' = 'json';
         if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
             responseType_ = 'text';
         }
 
-        return this.httpClient.post<CourseInstanceCreationResponseDto>(`${this.configuration.basePath}/createCourseInstance`,
-            createCourseInstanceDto,
+        return this.httpClient.get<Array<DocumentResponse>>(`${this.configuration.basePath}/documents/fetch/${encodeURIComponent(String(id))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -153,35 +152,17 @@ export class CourseInstanceControllerService {
     }
 
     /**
-     * getCourseInstances
-     * @param courseId courseId
-     * @param page page
-     * @param search search
-     * @param size size
+     * uploadDocuments
+     * @param files files
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCourseInstancesUsingGET(courseId?: number, page?: number, search?: string, size?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<CourseInstanceResponse>>;
-    public getCourseInstancesUsingGET(courseId?: number, page?: number, search?: string, size?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<CourseInstanceResponse>>>;
-    public getCourseInstancesUsingGET(courseId?: number, page?: number, search?: string, size?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<CourseInstanceResponse>>>;
-    public getCourseInstancesUsingGET(courseId?: number, page?: number, search?: string, size?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (courseId !== undefined && courseId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>courseId, 'courseId');
-        }
-        if (page !== undefined && page !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>page, 'page');
-        }
-        if (search !== undefined && search !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>search, 'search');
-        }
-        if (size !== undefined && size !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>size, 'size');
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<Array<DocumentResponse>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<Array<DocumentResponse>>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<Array<DocumentResponse>>>;
+    public uploadDocumentsUsingPOST(files: Array<Blob>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (files === null || files === undefined) {
+            throw new Error('Required parameter files was null or undefined when calling uploadDocumentsUsingPOST.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -190,7 +171,7 @@ export class CourseInstanceControllerService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
-                'application/json'
+                '*/*'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -203,16 +184,44 @@ export class CourseInstanceControllerService {
             localVarHttpContext = new HttpContext();
         }
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let localVarFormParams: { append(param: string, value: any): any; };
+        let localVarUseForm = false;
+        let localVarConvertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        localVarUseForm = canConsumeForm;
+        if (localVarUseForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new HttpParams({encoder: this.encoder});
+        }
+
+        if (files) {
+            if (localVarUseForm) {
+                files.forEach((element) => {
+                    localVarFormParams = localVarFormParams.append('files', <any>element) as any || localVarFormParams;
+            })
+            } else {
+                localVarFormParams = localVarFormParams.append('files', files.join(COLLECTION_FORMATS['csv'])) as any || localVarFormParams;
+            }
+        }
 
         let responseType_: 'text' | 'json' = 'json';
         if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
             responseType_ = 'text';
         }
 
-        return this.httpClient.get<Array<CourseInstanceResponse>>(`${this.configuration.basePath}/course-instances`,
+        return this.httpClient.post<Array<DocumentResponse>>(`${this.configuration.basePath}/documents/upload`,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
-                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

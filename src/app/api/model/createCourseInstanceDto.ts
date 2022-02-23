@@ -11,9 +11,9 @@
  */
 
 
-export interface LoginResponse { 
-    role?: string;
-    token?: string;
-    userId?: number;
+export interface CreateCourseInstanceDto { 
+    courseId?: number;
+    endDate?: string;
+    startDate?: string;
 }
 
