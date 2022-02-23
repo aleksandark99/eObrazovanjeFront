@@ -19,7 +19,11 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { CourseInstanceCreationResponseDto } from '../model/courseInstanceCreationResponseDto';
+// @ts-ignore
 import { CourseInstanceResponse } from '../model/courseInstanceResponse';
+// @ts-ignore
+import { CreateCourseInstanceDto } from '../model/createCourseInstanceDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -85,6 +89,67 @@ export class CourseInstanceControllerService {
             throw Error("key may not be null if value is not object or array");
         }
         return httpParams;
+    }
+
+    /**
+     * createCourseInstance
+     * @param createCourseInstanceDto createCourseInstanceDto
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CourseInstanceCreationResponseDto>;
+    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CourseInstanceCreationResponseDto>>;
+    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CourseInstanceCreationResponseDto>>;
+    public createCourseInstanceUsingPOST(createCourseInstanceDto: CreateCourseInstanceDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (createCourseInstanceDto === null || createCourseInstanceDto === undefined) {
+            throw new Error('Required parameter createCourseInstanceDto was null or undefined when calling createCourseInstanceUsingPOST.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                '*/*'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' = 'json';
+        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
+            responseType_ = 'text';
+        }
+
+        return this.httpClient.post<CourseInstanceCreationResponseDto>(`${this.configuration.basePath}/createCourseInstance`,
+            createCourseInstanceDto,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
     /**
