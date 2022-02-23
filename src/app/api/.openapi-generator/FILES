@@ -22,7 +22,10 @@ model/courseCreateRequest.ts
 model/courseInstanceCreationResponseDto.ts
 model/courseInstanceResponse.ts
 model/courseResponse.ts
+<<<<<<< HEAD
 model/createCourseInstanceDto.ts
+=======
+>>>>>>> main
 model/documentResponse.ts
 model/enrollmentResponse.ts
 model/examPeriod.ts

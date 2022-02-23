@@ -1,66 +1,67 @@
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { LoginDataRequest } from '../classes/login-data-request'
-import { UserRegisterData } from '../classes/UserRegisterData';
+import { Injectable } from "@angular/core";
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { LoginDataRequest } from "../classes/login-data-request";
+import { UserRegisterData } from "../classes/UserRegisterData";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class AuthService {
-  endpoint: string = 'http://localhost:8080/';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  endpoint: string = "http://localhost:8080/";
+  headers = new HttpHeaders().set("Content-Type", "application/json");
   currentUser = {};
 
-  constructor(
-    private http: HttpClient,
-    public router: Router
-  ) {
-  }
+  constructor(private http: HttpClient, public router: Router) {}
 
   Register(user: UserRegisterData) {
     let api = `${this.endpoint}auth/register`;
-    return this.http.post(this.endpoint+"register", user,{responseType:'text'})
-      .pipe(
-        catchError(this.handleError)
-      )
+    return this.http.post(this.endpoint + "register", user, { responseType: "text" }).pipe(catchError(this.handleError));
   }
 
   // login
   async login(data) {
-    var loginData= new LoginDataRequest(data.value);
-     return this.http.post<any>(this.endpoint+"auth/login", loginData)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
-        localStorage.setItem('role', res.role)
-        localStorage.setItem('userId', res.userId)
-        this.router.navigate(["/account"])
-      })
+    var loginData = new LoginDataRequest(data.value);
+    return this.http.post<any>(this.endpoint + "auth/login", loginData).subscribe((res: any) => {
+      localStorage.setItem("access_token", res.token);
+      localStorage.setItem("role", res.role);
+      localStorage.setItem("userId", res.userId);
+      switch (res.role) {
+        case "ROLE_ADMIN":
+          this.router.navigate(["/course-instances"]);
+          break;
+        case "ROLE_STUDENT":
+          this.router.navigate(["/student"], { queryParams: { id: res.userId } });
+          break;
+        case "ROLE_PROFESSOR":
+          this.router.navigate(["/lecturer"], { queryParams: { id: res.userId } });
+          break;
+      }
+    });
   }
 
-  getRole(){
-    return localStorage.getItem('role');
+  getRole() {
+    return localStorage.getItem("role");
   }
 
-  getUserId(){
-    return localStorage.getItem('userId');
+  getUserId() {
+    return localStorage.getItem("userId");
   }
 
   getToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem("access_token");
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    
-    return (authToken !== null) ? true : false;
+    let authToken = localStorage.getItem("access_token");
+
+    return authToken !== null ? true : false;
   }
 
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
-    let removeRole = localStorage.removeItem('role');
+    let removeToken = localStorage.removeItem("access_token");
+    let removeRole = localStorage.removeItem("role");
     if (removeToken == null) {
       this.router.navigate(["/login"]);
     }
@@ -71,15 +72,15 @@ export class AuthService {
     let api = `${this.endpoint}/user-profile/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || {}
+        return res || {};
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
-  // Error 
+  // Error
   handleError(error: HttpErrorResponse) {
-    let msg = '';
+    let msg = "";
 
     if (error.error instanceof ErrorEvent) {
       // client-side error
